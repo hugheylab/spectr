@@ -82,6 +82,9 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 
   data.table::setorderv(spec, 'freq')
   peaks = pracma::findpeaks(spec$power, ...)
+  if (is.null(peaks)) {
+    return(data.table())}
+
   peaks = peaks[order(peaks[, 1L], decreasing = TRUE), , drop = FALSE]
 
   dPeak = foreach(peakIdx = 1:min(nPeaks, nrow(peaks)), .combine = rbind) %do% {
