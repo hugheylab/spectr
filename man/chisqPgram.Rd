@@ -4,7 +4,8 @@
 \alias{chisqPgram}
 \title{Calculate chi-square periodogram}
 \usage{
-chisqPgram(x, deltat, na.action = imputeTS::na_ma, dopar = TRUE)
+chisqPgram(x, deltat, na.action = imputeTS::na_ma, dopar = TRUE,
+  restrict = FALSE)
 }
 \arguments{
 \item{x}{Numeric vector of measurements.}

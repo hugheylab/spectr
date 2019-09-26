@@ -131,7 +131,7 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #' @seealso `\link{spectrPgram}`
 #'
 #' @export
-chisqPgram = function(x, deltat, na.action = imputeTS::na_ma, dopar = TRUE) {
+chisqPgram = function(x, deltat, na.action = imputeTS::na_ma, dopar = TRUE, restrict = FALSE) {
   x = na.action(x)
   m = mean(x)
   n = length(x)
@@ -142,7 +142,15 @@ chisqPgram = function(x, deltat, na.action = imputeTS::na_ma, dopar = TRUE) {
   } else {
     doOp = `%do%`}
 
-  d = doOp(foreach(p = 2:floor(n / 2), .combine = rbind), {
+  # ADDED BY MCT 2019-09-26
+
+  if (restrict) {
+    pSpan = (12 / deltat):(36 / deltat)
+  } else {
+    pSpan = 2:floor(n/2)
+  }
+
+  d = doOp(foreach(p = pSpan, .combine = rbind), {
     k = n %/% p
     r = data.table(xx = x[1:(k * p)])
     r[, h := rep_len(1:p, .N)]
