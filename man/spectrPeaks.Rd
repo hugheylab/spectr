@@ -14,9 +14,9 @@ decreasing \code{power}.}
 
 \item{splineDf}{Numeric value of degrees of freedom for the natural cubic
 spline used to fit the periodogram around each peak, passed to
-\code{\link[splines]{ns}()}.}
+\verb{\link[splines]\{ns\}()}.}
 
-\item{...}{Other arguments passed to \code{\link[pracma]{findpeaks}()}.}
+\item{...}{Other arguments passed to \verb{\link[pracma]\{findpeaks\}()}.}
 }
 \value{
 \code{data.table} of periodogram peaks, with columns \code{freq}, \code{period}, and
@@ -40,5 +40,5 @@ peaks = spectrPeaks(spec[period \%between\% (tau + c(-4, 4))])
 
 }
 \seealso{
-\code{\link{spectrPgram}}
+\verb{\link{spectrPgram}}
 }

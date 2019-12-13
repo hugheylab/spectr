@@ -12,12 +12,12 @@ chisqPgram(x, deltat, na.action = imputeTS::na_ma, dopar = TRUE)
 \item{deltat}{Numeric value of the time interval between measurements.}
 
 \item{na.action}{Function specifying how to handle \code{NA} values in \code{x}.
-Default is \code{\link[imputeTS]{na_ma}()}, which imputes missing values by
+Default is \verb{\link[imputeTS]\{na_ma\}()}, which imputes missing values by
 weighted moving average.}
 
 \item{dopar}{Logical indicating whether to run calculations in parallel, if
 a parallel backend has already been set up, e.g., using
-\code{\link[doParallel]{registerDoParallel}()}.}
+\verb{\link[doParallel]\{registerDoParallel\}()}.}
 }
 \value{
 \code{data.table} with columns \code{period} and \code{chisq}.
@@ -39,5 +39,5 @@ peaksChisq = specChisq[period \%between\% (tau + c(-4, 4))][which.max(chisq)]
 
 }
 \seealso{
-\code{\link{spectrPgram}}
+\verb{\link{spectrPgram}}
 }

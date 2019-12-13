@@ -33,5 +33,5 @@ library('data.table')
 
 }
 \seealso{
-\code{\link{spectrPgram}}, \code{\link{spectrPeaks}}
+\verb{\link{spectrPgram}}, \verb{\link{spectrPeaks}}
 }

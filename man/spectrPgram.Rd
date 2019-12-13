@@ -12,14 +12,14 @@ spectrPgram(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...)
 \item{deltat}{Numeric value of the time interval between measurements.}
 
 \item{pad}{Numeric value of the proportion of the length of \code{x} by which to
-pad \code{x} with zeros, passed to \code{\link[stats]{spec.pgram}()}.}
+pad \code{x} with zeros, passed to \verb{\link[stats]\{spec.pgram\}()}.}
 
 \item{na.action}{Function specifying how to handle \code{NA} values in \code{x},
-passed to \code{\link[stats]{spec.pgram}()}. Default is
-\code{\link[imputeTS]{na_ma}()}, which imputes missing values by weighted
+passed to \verb{\link[stats]\{spec.pgram\}()}. Default is
+\verb{\link[imputeTS]\{na_ma\}()}, which imputes missing values by weighted
 moving average.}
 
-\item{...}{Other arguments passed to \code{\link[stats]{spec.pgram}()}.}
+\item{...}{Other arguments passed to \verb{\link[stats]\{spec.pgram\}()}.}
 }
 \value{
 \code{data.table} of the estimated spectral density, with columns \code{freq},
@@ -42,5 +42,5 @@ peaks = spectrPeaks(spec[period \%between\% (tau + c(-4, 4))])
 
 }
 \seealso{
-\code{\link{spectrPeaks}}
+\verb{\link{spectrPeaks}}
 }

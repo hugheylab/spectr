@@ -90,13 +90,19 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
   dPeak = foreach(peakIdx = 1:min(nPeaks, nrow(peaks)), .combine = rbind) %do% {
     idxLeft = floor(mean(peaks[peakIdx, 2:3]))
     idxRight = ceiling(mean(peaks[peakIdx, c(2L, 4L)]))
-    specNow = spec[idxLeft:idxRight]
+    specNow = spec[idxLeft:idxRight, ]
 
-    lmResult = stats::lm(power ~ splines::ns(freq, df = splineDf), data = specNow)
-    f = function(x) stats::predict(lmResult, data.frame(freq = x))
-    optResult = stats::optimize(f, interval = range(specNow$freq), maximum = TRUE)
-    dNow = data.table(freq = optResult$maximum, period = 1 / optResult$maximum,
-                      power = optResult$objective)}
+    if (nrow(specNow) >= splineDf + 1L) {
+      lmResult = stats::lm(power ~ splines::ns(freq, df = splineDf), data = specNow)
+      f = function(x) stats::predict(lmResult, data.frame(freq = x))
+      optResult = stats::optimize(f, interval = range(specNow$freq), maximum = TRUE)
+      dNow = data.table(freq = optResult$maximum,
+                        period = 1 / optResult$maximum,
+                        power = optResult$objective)
+    } else {
+      dNow = data.table(freq = spec$freq[peaks[peakIdx, 2L]],
+                        period = 1 / spec$freq[peaks[peakIdx, 2L]],
+                        power = peaks[peakIdx, 1L])}}
 
   return(dPeak)}
 
