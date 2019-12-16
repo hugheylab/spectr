@@ -41,7 +41,9 @@ globalVariables(c('limNow', 'peakIdx', 'p', 'period', 'chisq', 'df', 'pval'))
 spectrPgram = function(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...) {
   pg = stats::spec.pgram(stats::ts(x, deltat = deltat), plot = FALSE,
                          pad = pad, na.action = na.action, ...)
-  return(data.table(period = 1 / pg$freq, power = pg$spec))}
+  spec = data.table(period = 1 / pg$freq, power = pg$spec)
+  data.table::setorderv(spec, 'period')
+  return(spec)}
 
 
 #' Find peaks in periodogram
