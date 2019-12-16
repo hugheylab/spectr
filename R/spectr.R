@@ -3,7 +3,7 @@
 NULL
 
 
-globalVariables(c('.', '.N', 'f', 'h', 'limNow', 'p', 'peakIdx', 'period', 'power', 'xx'))
+globalVariables(c('limNow', 'peakIdx', 'p', 'period', 'chisq', 'df', 'pval'))
 
 
 #' Calculate periodogram
@@ -20,8 +20,8 @@ globalVariables(c('.', '.N', 'f', 'h', 'limNow', 'p', 'peakIdx', 'period', 'powe
 #'   moving average.
 #' @param ... Other arguments passed to `\link[stats]{spec.pgram}()`.
 #'
-#' @return `data.table` of the estimated spectral density, with columns `freq`,
-#'   `period` (in the same units as `deltat`), and `power`.
+#' @return `data.table` of the estimated spectral density, with columns `period`
+#'   (in the same units as `deltat`) and `power`.
 #'
 #' @examples
 #' library('data.table')
@@ -41,7 +41,7 @@ globalVariables(c('.', '.N', 'f', 'h', 'limNow', 'p', 'peakIdx', 'period', 'powe
 spectrPgram = function(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...) {
   pg = stats::spec.pgram(stats::ts(x, deltat = deltat), plot = FALSE,
                          pad = pad, na.action = na.action, ...)
-  return(data.table(freq = pg$freq, period = 1 / pg$freq, power = pg$spec))}
+  return(data.table(period = 1 / pg$freq, power = pg$spec))}
 
 
 #' Find peaks in periodogram
@@ -49,7 +49,7 @@ spectrPgram = function(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...) {
 #' Find local maxima and use spline interpolation to estimate one or more peaks
 #' in the spectral density.
 #'
-#' @param spec `data.table` with at least columns `freq` and `power`.
+#' @param spec `data.table` with at least columns `period` and `power`.
 #' @param nPeaks Integer of the maximum number of peaks to return, sorted by
 #'   decreasing `power`.
 #' @param splineDf Numeric value of degrees of freedom for the natural cubic
@@ -57,8 +57,7 @@ spectrPgram = function(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...) {
 #'   `\link[splines]{ns}()`.
 #' @param ... Other arguments passed to `\link[pracma]{findpeaks}()`.
 #'
-#' @return `data.table` of periodogram peaks, with columns `freq`, `period`, and
-#'   `power`.
+#' @return `data.table` of periodogram peaks, with columns `period` and `power`.
 #'
 #' @examples
 #' library('data.table')
@@ -77,10 +76,10 @@ spectrPgram = function(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...) {
 #' @export
 spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
   stopifnot(data.table::is.data.table(spec),
-            all(c('freq', 'power') %in% colnames(spec)),
+            all(c('period', 'power') %in% colnames(spec)),
             nPeaks >= 1, splineDf >= 2)
 
-  data.table::setorderv(spec, 'freq')
+  data.table::setorderv(spec, 'period')
   peaks = pracma::findpeaks(spec$power, ...)
   if (is.null(peaks)) {
     return(data.table())}
@@ -93,15 +92,13 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
     specNow = spec[idxLeft:idxRight, ]
 
     if (nrow(specNow) >= splineDf + 1L) {
-      lmResult = stats::lm(power ~ splines::ns(freq, df = splineDf), data = specNow)
-      f = function(x) stats::predict(lmResult, data.frame(freq = x))
-      optResult = stats::optimize(f, interval = range(specNow$freq), maximum = TRUE)
-      dNow = data.table(freq = optResult$maximum,
-                        period = 1 / optResult$maximum,
+      lmResult = stats::lm(power ~ splines::ns(period, df = splineDf), data = specNow)
+      f = function(x) stats::predict(lmResult, data.frame(period = x))
+      optResult = stats::optimize(f, interval = range(specNow$period), maximum = TRUE)
+      dNow = data.table(period = optResult$maximum,
                         power = optResult$objective)
     } else {
-      dNow = data.table(freq = spec$freq[peaks[peakIdx, 2L]],
-                        period = 1 / spec$freq[peaks[peakIdx, 2L]],
+      dNow = data.table(period = spec$period[peaks[peakIdx, 2L]],
                         power = peaks[peakIdx, 1L])}}
 
   return(dPeak)}
@@ -168,7 +165,7 @@ chisqPgram = function(x, deltat, periodRange = c(18, 32),
 
   d[, period := p * deltat]
   d[, df := p - 1]
-  d[, pval := pchisq(chisq, df, lower.tail = FALSE)]
+  d[, pval := stats::pchisq(chisq, df, lower.tail = FALSE)]
   d[, p := NULL]
   data.table::setcolorder(d, 'period')
   return(d[])}

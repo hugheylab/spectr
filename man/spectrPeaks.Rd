@@ -7,7 +7,7 @@
 spectrPeaks(spec, nPeaks = 1L, splineDf = 3L, ...)
 }
 \arguments{
-\item{spec}{\code{data.table} with at least columns \code{freq} and \code{power}.}
+\item{spec}{\code{data.table} with at least columns \code{period} and \code{power}.}
 
 \item{nPeaks}{Integer of the maximum number of peaks to return, sorted by
 decreasing \code{power}.}
@@ -19,8 +19,7 @@ spline used to fit the periodogram around each peak, passed to
 \item{...}{Other arguments passed to \verb{\link[pracma]\{findpeaks\}()}.}
 }
 \value{
-\code{data.table} of periodogram peaks, with columns \code{freq}, \code{period}, and
-\code{power}.
+\code{data.table} of periodogram peaks, with columns \code{period} and \code{power}.
 }
 \description{
 Find local maxima and use spline interpolation to estimate one or more peaks

@@ -22,8 +22,8 @@ moving average.}
 \item{...}{Other arguments passed to \verb{\link[stats]\{spec.pgram\}()}.}
 }
 \value{
-\code{data.table} of the estimated spectral density, with columns \code{freq},
-\code{period} (in the same units as \code{deltat}), and \code{power}.
+\code{data.table} of the estimated spectral density, with columns \code{period}
+(in the same units as \code{deltat}) and \code{power}.
 }
 \description{
 Calculate the periodogram of a time series using a fast Fourier transform.
