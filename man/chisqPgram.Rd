@@ -4,12 +4,22 @@
 \alias{chisqPgram}
 \title{Calculate chi-square periodogram}
 \usage{
-chisqPgram(x, deltat, na.action = imputeTS::na_ma, dopar = TRUE)
+chisqPgram(
+  x,
+  deltat,
+  periodRange = c(18, 32),
+  na.action = imputeTS::na_ma,
+  dopar = TRUE
+)
 }
 \arguments{
 \item{x}{Numeric vector of measurements.}
 
 \item{deltat}{Numeric value of the time interval between measurements.}
+
+\item{periodRange}{Numeric vector of the minimum and maximum values of the
+period, in units of \code{deltat}, for which to calculate the chi-squared
+statistic.}
 
 \item{na.action}{Function specifying how to handle \code{NA} values in \code{x}.
 Default is \verb{\link[imputeTS]\{na_ma\}()}, which imputes missing values by
@@ -20,7 +30,7 @@ a parallel backend has already been set up, e.g., using
 \verb{\link[doParallel]\{registerDoParallel\}()}.}
 }
 \value{
-\code{data.table} with columns \code{period} and \code{chisq}.
+\code{data.table} with columns \code{period}, \code{chisq}, \code{df}, and \code{pval}.
 }
 \description{
 Calculate the chi-square periodogram of a time series.
@@ -35,7 +45,7 @@ tt = seq(0, tau * 5, deltat)
 x = sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
 specChisq = chisqPgram(x, deltat, dopar = FALSE)
-peaksChisq = specChisq[period \%between\% (tau + c(-4, 4))][which.max(chisq)]
+peaksChisq = specChisq[which.min(pval)]
 
 }
 \seealso{

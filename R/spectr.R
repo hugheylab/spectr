@@ -113,6 +113,9 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #'
 #' @param x Numeric vector of measurements.
 #' @param deltat Numeric value of the time interval between measurements.
+#' @param periodRange Numeric vector of the minimum and maximum values of the
+#'   period, in units of `deltat`, for which to calculate the chi-squared
+#'   statistic.
 #' @param na.action Function specifying how to handle `NA` values in `x`.
 #'   Default is `\link[imputeTS]{na_ma}()`, which imputes missing values by
 #'   weighted moving average.
@@ -120,7 +123,7 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #'   a parallel backend has already been set up, e.g., using
 #'   `\link[doParallel]{registerDoParallel}()`.
 #'
-#' @return `data.table` with columns `period` and `chisq`.
+#' @return `data.table` with columns `period`, `chisq`, `df`, and `pval`.
 #'
 #' @examples
 #' library('data.table')
@@ -132,31 +135,40 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #' x = sin(tt / tau * 2 * pi) + rnorm(length(tt))
 #'
 #' specChisq = chisqPgram(x, deltat, dopar = FALSE)
-#' peaksChisq = specChisq[period %between% (tau + c(-4, 4))][which.max(chisq)]
+#' peaksChisq = specChisq[which.min(pval)]
 #'
 #' @seealso `\link{spectrPgram}`
 #'
 #' @export
-chisqPgram = function(x, deltat, na.action = imputeTS::na_ma, dopar = TRUE) {
+chisqPgram = function(x, deltat, periodRange = c(18, 32),
+                      na.action = imputeTS::na_ma, dopar = TRUE) {
+
+  stopifnot(is.vector(periodRange, 'numeric'),
+            length(periodRange) == 2,
+            periodRange[2] - periodRange[1] > 0)
+
+  pSpan = (periodRange[1] / deltat):(periodRange[2] / deltat)
+  if (length(pSpan) == 0) {
+    stop('deltat and periodRange are incompatible.')}
+  k = length(x) %/% max(pSpan)
   x = na.action(x)
-  m = mean(x)
-  n = length(x)
-  v = sum((x - m)^2)
 
   if (isTRUE(dopar)) {
     doOp = `%dopar%`
   } else {
     doOp = `%do%`}
 
-  d = doOp(foreach(p = 2:floor(n / 2), .combine = rbind), {
-    k = n %/% p
-    r = data.table(xx = x[1:(k * p)])
-    r[, h := rep_len(1:p, .N)]
-    u = r[, .(uh = (mean(xx) - m)^2), by = h]
-    qp = k * n * sum(u$uh) / v
-    data.table(p = p, chisq = qp)})
+  d = doOp(foreach(p = pSpan, .combine = rbind), {
+    xNow = x[1:(k * p)]
+    mNow = mean(xNow)
+    xMat = matrix(xNow, ncol = p, byrow = TRUE)
+    xH = colMeans(xMat)
+    qP = (k * length(xNow) * sum((xH - mNow)^2)) / sum((xNow - mNow)^2)
+    dNow = data.table(p = p, chisq = qP)})
 
   d[, period := p * deltat]
+  d[, df := p - 1]
+  d[, pval := pchisq(chisq, df, lower.tail = FALSE)]
   d[, p := NULL]
   data.table::setcolorder(d, 'period')
   return(d[])}
