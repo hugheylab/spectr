@@ -115,6 +115,10 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #' @param periodRange Numeric vector of the minimum and maximum values of the
 #'   period, in units of `deltat`, for which to calculate the chi-squared
 #'   statistic.
+#' @param fair Logical indicating whether to calculate the chi-squared statistic
+#'  based on the same number of blocks for each possible period. The traditional
+#'  calculation sets this variable to `FALSE`, which can lead to discontinuities
+#'  in the curve of chi-squared or p-value as a function of period.
 #' @param na.action Function specifying how to handle `NA` values in `x`.
 #'   Default is `\link[imputeTS]{na_ma}()`, which imputes missing values by
 #'   weighted moving average.
@@ -139,7 +143,7 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #' @seealso `\link{spectrPgram}`
 #'
 #' @export
-chisqPgram = function(x, deltat, periodRange = c(18, 32),
+chisqPgram = function(x, deltat, periodRange = c(18, 32), fair = TRUE,
                       na.action = imputeTS::na_ma, dopar = TRUE) {
 
   stopifnot(is.vector(periodRange, 'numeric'),
@@ -158,6 +162,8 @@ chisqPgram = function(x, deltat, periodRange = c(18, 32),
     doOp = `%do%`}
 
   d = doOp(foreach(p = pSpan, .combine = rbind), {
+    if (isFALSE(fair)) {
+      k = length(x) %/% p}
     xNow = x[1:(k * p)]
     mNow = mean(xNow)
     xMat = matrix(xNow, ncol = p, byrow = TRUE)

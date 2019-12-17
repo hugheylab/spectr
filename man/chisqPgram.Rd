@@ -8,6 +8,7 @@ chisqPgram(
   x,
   deltat,
   periodRange = c(18, 32),
+  fair = TRUE,
   na.action = imputeTS::na_ma,
   dopar = TRUE
 )
@@ -20,6 +21,11 @@ chisqPgram(
 \item{periodRange}{Numeric vector of the minimum and maximum values of the
 period, in units of \code{deltat}, for which to calculate the chi-squared
 statistic.}
+
+\item{fair}{Logical indicating whether to calculate the chi-squared statistic
+based on the same number of blocks for each possible period. The traditional
+calculation sets this variable to \code{FALSE}, which can lead to discontinuities
+in the curve of chi-squared or p-value as a function of period.}
 
 \item{na.action}{Function specifying how to handle \code{NA} values in \code{x}.
 Default is \verb{\link[imputeTS]\{na_ma\}()}, which imputes missing values by
