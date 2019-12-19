@@ -116,9 +116,10 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #'   period, in units of `deltat`, for which to calculate the chi-squared
 #'   statistic.
 #' @param fair Logical indicating whether to calculate the chi-squared statistic
-#'  based on the same number of blocks for each possible period. The traditional
-#'  calculation sets this variable to `FALSE`, which can lead to discontinuities
-#'  in the curve of chi-squared or p-value as a function of period.
+#'   based on the same number of blocks for each possible period. The
+#'   traditional calculation sets this variable to `FALSE`, which can lead to
+#'   discontinuities in the curve of chi-squared or p-value as a function of
+#'   period.
 #' @param na.action Function specifying how to handle `NA` values in `x`.
 #'   Default is `\link[imputeTS]{na_ma}()`, which imputes missing values by
 #'   weighted moving average.
@@ -191,8 +192,8 @@ chisqPgram = function(x, deltat, periodRange = c(18, 32), fair = TRUE,
 #' @param frac Numeric value of the fraction of activity above threshold (or
 #'   fraction of overall activity, if `thresh` is `NULL`) to capture.
 #'
-#' @return `data.table` with columns `onset` and `width`, both in units of
-#'   fraction of `tau`.
+#' @return `data.table` with columns `onset`, `offset`, and `width`, all in
+#'   units of fraction of `tau`.
 #'
 #' @examples
 #' library('data.table')
@@ -203,9 +204,10 @@ chisqPgram = function(x, deltat, periodRange = c(18, 32), fair = TRUE,
 #'
 #' @export
 spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
-  # find minimum width of time window that contains at least frac of activity above threshold
-  tt = time / tau
-  tt = tt - floor(tt)
+  # minimize tWidth such that activity between tOn and (tOn + tWidth) %% 1
+  # is >= frac of total activity
+  tt = (time %% tau) / tau
+  ttUnique = sort(unique(tt))
 
   if (is.null(thresh)) {
     stopifnot(all(activity >= 0))
@@ -214,26 +216,46 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
     stopifnot(any(activity >= thresh))
     aat = activity >= thresh}
 
-  # given lim and wd, calculate frac
-  h = function(lim, wd, tt, aat) {
-    idx = ((tt >= lim) & (tt < lim + wd)) | (tt < max(0, lim + wd - 1))
-    return(sum(aat[idx], na.rm = TRUE) / sum(aat, na.rm = TRUE))}
+  # given particular settings, calculate frac of aat captured
+  h = function(tOn, tOff, tt, aat) {
+    if (tOn < tOff) {
+      idx = (tt >= tOn) & (tt < tOff)
+    } else {
+      idx = (tt >= tOn) | (tt < tOff)}
+    fracCaptured = sum(aat[idx], na.rm = TRUE) / sum(aat, na.rm = TRUE)
+    return(fracCaptured)}
 
-  g = function(wd, lim, frac, tt, aat) {
-    w = h(lim, wd, tt, aat) - frac
-    w = ifelse(w < 0, .Machine$double.xmax, abs(w))
-    return(w)}
+  # given particular settings, calculate minimum width
+  f = function(tOn, frac, tt, aat, ttUnique) {
+    tOffNext = tOn
+    fracCaptured = 1
 
-  f = function(lim, frac, tt, aat) {
-    # given frac and lim, optimize wd to find the desired frac, should be convex
-    v = stats::optimize(g, interval = c(0, 1), lim, frac, tt, aat)
-    return(v$minimum)}
+    if (tOn <= ttUnique[1L]) {
+      idxNext = 1L
+    } else {
+      idxNext = max(which(ttUnique <= tOn)) + 1}
 
-  # given frac, optimize lim to find minimum wd, start near the global minimum
-  lim = seq(0, 0.99, 0.01)
-  wd = foreach(limNow = lim, .combine = c) %do% {f(limNow, frac, tt, aat)}
-  u = stats::optim(lim[which.min(wd)], f, method = 'L-BFGS-B',
-                   frac = frac, tt = tt, aat = aat, lower = 0, upper = 1)
+    while (fracCaptured >= frac) {
+      tOff = tOffNext
 
-  alpha = data.table(onset = u$par, width = u$value)
+      if (idxNext > 1L) {
+        idxNext = idxNext - 1L
+      } else {
+        idxNext = length(ttUnique)}
+
+      tOffNext = ttUnique[idxNext]
+      fracCaptured = h(tOn, tOffNext, tt, aat)}
+
+    tWidth = (tOff - tOn) %% 1
+    return(tWidth)}
+
+  ep = 0.01
+  tOnRange = seq(0, 1 - ep, ep)
+  tWidthRange = foreach(tOn = tOnRange, .combine = c) %do% {
+    tWidthNow = f(tOn, frac, tt, aat, ttUnique)}
+
+  u = stats::optim(tOnRange[which.min(tWidthRange)], f, method = 'L-BFGS-B',
+                   frac = frac, tt = tt, aat = aat, ttUnique = ttUnique,
+                   lower = 0, upper = 1)
+  alpha = data.table(onset = u$par, offset = (u$par + u$value) %% 1, width = u$value)
   return(alpha)}
