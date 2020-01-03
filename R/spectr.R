@@ -3,7 +3,7 @@
 NULL
 
 
-globalVariables(c('limNow', 'peakIdx', 'p', 'period', 'chisq', 'df', 'pval'))
+globalVariables(c('limNow', 'peakIdx', 'p', 'period', 'chisq', 'df', 'pval', 'tOn'))
 
 
 #' Calculate periodogram
@@ -216,46 +216,65 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
     stopifnot(any(activity >= thresh))
     aat = activity >= thresh}
 
-  # given particular settings, calculate frac of aat captured
-  h = function(tOn, tOff, tt, aat) {
-    if (tOn < tOff) {
-      idx = (tt >= tOn) & (tt < tOff)
-    } else {
-      idx = (tt >= tOn) | (tt < tOff)}
-    fracCaptured = sum(aat[idx], na.rm = TRUE) / sum(aat, na.rm = TRUE)
-    return(fracCaptured)}
-
-  # given particular settings, calculate minimum width
-  f = function(tOn, frac, tt, aat, ttUnique) {
-    tOffNext = tOn
-    fracCaptured = 1
-
-    if (tOn <= ttUnique[1L]) {
-      idxNext = 1L
-    } else {
-      idxNext = max(which(ttUnique <= tOn)) + 1}
-
-    while (fracCaptured >= frac) {
-      tOff = tOffNext
-
-      if (idxNext > 1L) {
-        idxNext = idxNext - 1L
-      } else {
-        idxNext = length(ttUnique)}
-
-      tOffNext = ttUnique[idxNext]
-      fracCaptured = h(tOn, tOffNext, tt, aat)}
-
-    tWidth = (tOff - tOn) %% 1
-    return(tWidth)}
-
   ep = 0.01
   tOnRange = seq(0, 1 - ep, ep)
   tWidthRange = foreach(tOn = tOnRange, .combine = c) %do% {
-    tWidthNow = f(tOn, frac, tt, aat, ttUnique)}
+    tWidthNow = getMinWidth(tOn, frac, tt, aat, ttUnique)}
 
-  u = stats::optim(tOnRange[which.min(tWidthRange)], f, method = 'L-BFGS-B',
+  u = stats::optim(tOnRange[which.min(tWidthRange)], getMinWidth, method = 'L-BFGS-B',
                    frac = frac, tt = tt, aat = aat, ttUnique = ttUnique,
                    lower = 0, upper = 1)
   alpha = data.table(onset = u$par, offset = (u$par + u$value) %% 1, width = u$value)
   return(alpha)}
+
+
+roll = function(x, n) {
+  if (n == 0) {
+    return(x)}
+  return(c(utils::tail(x, n), utils::head(x, -n)))}
+
+
+getRotatedTime = function(ttUnique, tOn) {
+  idxStart = match(TRUE, ttUnique >= tOn, nomatch = 1L)
+  r = roll(ttUnique, 1 - idxStart)
+  return(r)}
+
+
+# given particular settings, calculate frac of aat captured
+getFrac = function(tOn, tOff, tt, aat) {
+  if (tOn < tOff) {
+    idx = (tt >= tOn) & (tt <= tOff)
+  } else {
+    idx = (tt >= tOn) | (tt <= tOff)}
+  fracCaptured = sum(aat[idx], na.rm = TRUE) / sum(aat, na.rm = TRUE)
+  return(fracCaptured)}
+
+
+# given particular settings, calculate minimum width
+getMinWidth = function(tOn, frac, tt, aat, ttUnique) {
+  ttRotated = getRotatedTime(ttUnique, tOn)
+  idxL = 1L
+  idxR = length(ttRotated)
+
+  while (idxR - idxL > 1L) {
+    idxM = floor((idxL + idxR) / 2)
+    fracM = getFrac(tOn, ttRotated[idxM], tt, aat)
+
+    if (fracM < frac) {
+      idxL = idxM
+    } else {
+      idxR = idxM}}
+
+  fracL = getFrac(tOn, ttRotated[idxL], tt, aat)
+  fracR = getFrac(tOn, ttRotated[idxR], tt, aat)
+
+  if (fracL >= frac) {
+    idxKeep = idxL
+  } else if (fracR < frac) {
+    idxKeep = idxR + 1L
+  } else {
+    idxKeep = idxR}
+
+  tOff = ttRotated[idxKeep]
+  tWidth = (tOff - tOn) %% 1
+  return(tWidth)}
