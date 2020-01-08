@@ -29,12 +29,12 @@ discontinuities in the curve of chi-squared or p-value as a function of
 period.}
 
 \item{na.action}{Function specifying how to handle \code{NA} values in \code{x}.
-Default is \verb{\link[imputeTS]\{na_ma\}()}, which imputes missing values by
+Default is \code{\link[imputeTS:na_ma]{imputeTS::na_ma()}}, which imputes missing values by
 weighted moving average.}
 
 \item{dopar}{Logical indicating whether to run calculations in parallel, if
 a parallel backend has already been set up, e.g., using
-\verb{\link[doParallel]\{registerDoParallel\}()}.}
+\code{\link[doParallel:registerDoParallel]{doParallel::registerDoParallel()}}.}
 }
 \value{
 \code{data.table} with columns \code{period}, \code{chisq}, \code{df}, and \code{pval}.
@@ -56,5 +56,5 @@ peaksChisq = specChisq[which.min(pval)]
 
 }
 \seealso{
-\verb{\link{spectrPgram}}
+\code{\link[=spectrPgram]{spectrPgram()}}
 }

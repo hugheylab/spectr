@@ -13,12 +13,11 @@ globalVariables(c('limNow', 'peakIdx', 'p', 'period', 'chisq', 'df', 'pval', 'tO
 #' @param x Numeric vector of measurements.
 #' @param deltat Numeric value of the time interval between measurements.
 #' @param pad Numeric value of the proportion of the length of `x` by which to
-#'   pad `x` with zeros, passed to `\link[stats]{spec.pgram}()`.
+#'   pad `x` with zeros, passed to [stats::spec.pgram()].
 #' @param na.action Function specifying how to handle `NA` values in `x`,
-#'   passed to `\link[stats]{spec.pgram}()`. Default is
-#'   `\link[imputeTS]{na_ma}()`, which imputes missing values by weighted
-#'   moving average.
-#' @param ... Other arguments passed to `\link[stats]{spec.pgram}()`.
+#'   passed to [stats::spec.pgram()]. Default is [imputeTS::na_ma()], which
+#'   imputes missing values by weighted moving average.
+#' @param ... Other arguments passed to [stats::spec.pgram()].
 #'
 #' @return `data.table` of the estimated spectral density, with columns `period`
 #'   (in the same units as `deltat`) and `power`.
@@ -35,7 +34,7 @@ globalVariables(c('limNow', 'peakIdx', 'p', 'period', 'chisq', 'df', 'pval', 'tO
 #' spec = spectrPgram(x, deltat)
 #' peaks = spectrPeaks(spec[period %between% (tau + c(-4, 4))])
 #'
-#' @seealso `\link{spectrPeaks}`
+#' @seealso [spectrPeaks()]
 #'
 #' @export
 spectrPgram = function(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...) {
@@ -56,8 +55,8 @@ spectrPgram = function(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...) {
 #'   decreasing `power`.
 #' @param splineDf Numeric value of degrees of freedom for the natural cubic
 #'   spline used to fit the periodogram around each peak, passed to
-#'   `\link[splines]{ns}()`.
-#' @param ... Other arguments passed to `\link[pracma]{findpeaks}()`.
+#'   [splines::ns()].
+#' @param ... Other arguments passed to [pracma::findpeaks()].
 #'
 #' @return `data.table` of periodogram peaks, with columns `period` and `power`.
 #'
@@ -73,7 +72,7 @@ spectrPgram = function(x, deltat, pad = 20, na.action = imputeTS::na_ma, ...) {
 #' spec = spectrPgram(x, deltat)
 #' peaks = spectrPeaks(spec[period %between% (tau + c(-4, 4))])
 #'
-#' @seealso `\link{spectrPgram}`
+#' @seealso [spectrPgram()]
 #'
 #' @export
 spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
@@ -121,11 +120,11 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #'   discontinuities in the curve of chi-squared or p-value as a function of
 #'   period.
 #' @param na.action Function specifying how to handle `NA` values in `x`.
-#'   Default is `\link[imputeTS]{na_ma}()`, which imputes missing values by
+#'   Default is [imputeTS::na_ma()], which imputes missing values by
 #'   weighted moving average.
 #' @param dopar Logical indicating whether to run calculations in parallel, if
 #'   a parallel backend has already been set up, e.g., using
-#'   `\link[doParallel]{registerDoParallel}()`.
+#'   [doParallel::registerDoParallel()].
 #'
 #' @return `data.table` with columns `period`, `chisq`, `df`, and `pval`.
 #'
@@ -141,7 +140,7 @@ spectrPeaks = function(spec, nPeaks = 1L, splineDf = 3L, ...) {
 #' specChisq = chisqPgram(x, deltat, dopar = FALSE)
 #' peaksChisq = specChisq[which.min(pval)]
 #'
-#' @seealso `\link{spectrPgram}`
+#' @seealso [spectrPgram()]
 #'
 #' @export
 chisqPgram = function(x, deltat, periodRange = c(18, 32), fair = TRUE,
@@ -200,7 +199,7 @@ chisqPgram = function(x, deltat, periodRange = c(18, 32), fair = TRUE,
 #'
 #' # TODO
 #'
-#' @seealso `\link{spectrPgram}`, `\link{spectrPeaks}`
+#' @seealso [spectrPgram()], [spectrPeaks()]
 #'
 #' @export
 spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
@@ -228,7 +227,7 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
   return(alpha)}
 
 
-roll = function(x, n) {
+rotate = function(x, n) {
   if (n == 0) {
     return(x)}
   return(c(utils::tail(x, n), utils::head(x, -n)))}
@@ -236,7 +235,7 @@ roll = function(x, n) {
 
 getRotatedTime = function(ttUnique, tOn) {
   idxStart = match(TRUE, ttUnique >= tOn, nomatch = 1L)
-  r = roll(ttUnique, 1 - idxStart)
+  r = rotate(ttUnique, 1 - idxStart)
   return(r)}
 
 
