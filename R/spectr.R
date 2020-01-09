@@ -3,7 +3,8 @@
 NULL
 
 
-globalVariables(c('limNow', 'peakIdx', 'p', 'period', 'chisq', 'df', 'pval', 'tOn'))
+globalVariables(c('limNow', 'peakIdx', 'p', 'period', 'chisq', 'df', 'pval',
+                  'fracNow', 'tOn'))
 
 
 #' Calculate periodogram
@@ -215,15 +216,23 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
     stopifnot(any(activity >= thresh))
     aat = activity >= thresh}
 
+  frac = sort(unique(frac))
+  stopifnot(is.numeric(frac), all(frac > 0), all(frac < 1))
+
   ep = 0.01
   tOnRange = seq(0, 1 - ep, ep)
-  tWidthRange = foreach(tOn = tOnRange, .combine = c) %do% {
-    tWidthNow = getMinWidth(tOn, frac, tt, aat, ttUnique)}
 
-  u = stats::optim(tOnRange[which.min(tWidthRange)], getMinWidth, method = 'L-BFGS-B',
-                   frac = frac, tt = tt, aat = aat, ttUnique = ttUnique,
-                   lower = 0, upper = 1)
-  alpha = data.table(onset = u$par, offset = (u$par + u$value) %% 1, width = u$value)
+  alpha = foreach(fracNow = frac, .combine = rbind) %do% {
+    tWidthRange = foreach(tOn = tOnRange, .combine = c) %do% {
+      tWidthNow = getMinWidth(tOn, fracNow, tt, aat, ttUnique)}
+
+    u = stats::optim(tOnRange[which.min(tWidthRange)], getMinWidth,
+                     method = 'L-BFGS-B', frac = fracNow, tt = tt, aat = aat,
+                     ttUnique = ttUnique, lower = 0, upper = 1)
+
+    alphaNow = data.table(frac = fracNow, onset = u$par,
+                          offset = (u$par + u$value) %% 1, width = u$value)}
+
   return(alpha)}
 
 
