@@ -206,6 +206,8 @@ chisqPgram = function(x, deltat, periodRange = c(18, 32), fair = TRUE,
 spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
   # minimize tWidth such that activity between tOn and (tOn + tWidth) %% 1
   # is >= frac of total activity
+  stopifnot(length(time) == length(activity))
+
   tt = (time %% tau) / tau
   ttUnique = sort(unique(tt))
 
