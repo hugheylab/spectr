@@ -192,8 +192,8 @@ chisqPgram = function(x, deltat, periodRange = c(18, 32), fair = TRUE,
 #' @param frac Numeric value of the fraction of activity above threshold (or
 #'   fraction of overall activity, if `thresh` is `NULL`) to capture.
 #'
-#' @return `data.table` with columns `onset`, `offset`, and `width`, all in
-#'   units of fraction of `tau`.
+#' @return `data.table` with columns `onset`, `offset`, `center`, and `width`,
+#'   all in units of fraction of `tau`.
 #'
 #' @examples
 #' library('data.table')
@@ -232,8 +232,11 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
                      method = 'L-BFGS-B', frac = fracNow, tt = tt, aat = aat,
                      ttUnique = ttUnique, lower = 0, upper = 1)
 
-    alphaNow = data.table(frac = fracNow, onset = u$par,
-                          offset = (u$par + u$value) %% 1, width = u$value)}
+    alphaNow = data.table(frac = fracNow,
+                          onset = u$par,
+                          offset = (u$par + u$value) %% 1,
+                          center = (u$par + u$value / 2) %% 1,
+                          width = u$value)}
 
   return(alpha)}
 
