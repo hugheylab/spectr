@@ -20,8 +20,8 @@ spectrAlpha(time, activity, tau, thresh, frac = 0.9)
 fraction of overall activity, if \code{thresh} is \code{NULL}) to capture.}
 }
 \value{
-\code{data.table} with columns \code{onset}, \code{offset}, and \code{width}, all in
-units of fraction of \code{tau}.
+\code{data.table} with columns \code{onset}, \code{offset}, \code{center}, and \code{width},
+all in units of fraction of \code{tau}.
 }
 \description{
 TODO.
