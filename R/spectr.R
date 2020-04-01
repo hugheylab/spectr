@@ -206,11 +206,12 @@ chisqPgram = function(x, deltat, periodRange = c(18, 32), fair = TRUE,
 spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
   # minimize tWidth such that activity between tOn and (tOn + tWidth) %% 1
   # is >= frac of total activity
-  stopifnot(length(time) == length(activity))
-
   idx = order(time)
   time = time[idx]
   activity = activity[idx]
+
+  stopifnot(length(time) == length(activity))
+  stopifnot(max(time) - min(time) >= tau)
 
   tt = (time %% tau) / tau
   ttUnique = unique(tt) #sort(unique(tt))
@@ -252,7 +253,8 @@ getCoverage = function(time, tau) {
   # assumes time is already sorted and approximately evenly spaced
   nCycles = (time[length(time)] - time[1L]) / tau
   coverage = rep(ceiling(nCycles), length(time))
-  coverage[time > time[1L] + floor(nCycles) * tau] = floor(nCycles)
+  idx = time > time[1L] + floor(nCycles + 10 * .Machine$double.eps) * tau
+  coverage[idx] = floor(nCycles)
   return(coverage)}
 
 
