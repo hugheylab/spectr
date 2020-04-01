@@ -214,7 +214,7 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
   activity = activity[idx]
 
   tt = (time %% tau) / tau
-  ttUnique = unique(tt) #sort(unique(tt))
+  ttUnique = sort(unique(tt))
 
   if (is.null(thresh)) {
     stopifnot(all(activity >= 0))
@@ -229,7 +229,7 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
   frac = sort(unique(frac))
   stopifnot(is.numeric(frac), all(frac > 0), all(frac < 1))
 
-  ep = 0.01
+  ep = min(diff(time)) / tau # 0.01
   tOnRange = seq(0, 1 - ep, ep)
 
   alpha = foreach(fracNow = frac, .combine = rbind) %do% {
@@ -238,7 +238,7 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
 
     u = stats::optim(tOnRange[which.min(tWidthRange)], getMinWidth,
                      method = 'L-BFGS-B', frac = fracNow, tt = tt, aat = aat,
-                     ttUnique = ttUnique, lower = 0, upper = 1)
+                     ttUnique = ttUnique, lower = 0, upper = diff(range(tt)))
 
     alphaNow = data.table(frac = fracNow,
                           onset = u$par,
@@ -266,7 +266,7 @@ rotate = function(x, n) {
 
 getRotatedTime = function(ttUnique, tOn) {
   idxStart = match(TRUE, ttUnique >= tOn, nomatch = 1L)
-  r = rotate(ttUnique, 1 - idxStart)
+  r = rotate(ttUnique, 1L - idxStart)
   return(r)}
 
 
