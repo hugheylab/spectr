@@ -208,8 +208,12 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
   # is >= frac of total activity
   stopifnot(length(time) == length(activity))
 
+  idx = order(time)
+  time = time[idx]
+  activity = activity[idx]
+
   tt = (time %% tau) / tau
-  ttUnique = sort(unique(tt))
+  ttUnique = unique(tt) #sort(unique(tt))
 
   if (is.null(thresh)) {
     stopifnot(all(activity >= 0))
@@ -217,6 +221,9 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
   } else {
     stopifnot(any(activity >= thresh))
     aat = activity >= thresh}
+
+  coverage = getCoverage(time, tau)
+  aat = aat / coverage
 
   frac = sort(unique(frac))
   stopifnot(is.numeric(frac), all(frac > 0), all(frac < 1))
@@ -239,6 +246,14 @@ spectrAlpha = function(time, activity, tau, thresh, frac = 0.9) {
                           width = u$value)}
 
   return(alpha)}
+
+
+getCoverage = function(time, tau) {
+  # assumes time is already sorted and approximately evenly spaced
+  nCycles = (time[length(time)] - time[1L]) / tau
+  coverage = rep(ceiling(nCycles), length(time))
+  coverage[time > time[1L] + floor(nCycles) * tau] = floor(nCycles)
+  return(coverage)}
 
 
 rotate = function(x, n) {
