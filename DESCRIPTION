@@ -1,10 +1,10 @@
 Package: spectr
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: as.person("Jake Hughey <jakejhughey@gmail.com> [aut, cre]")
 Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+  Use four spaces when indenting paragraphs within the Description.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
@@ -12,12 +12,9 @@ RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 Depends: R (>= 3.6)
 Imports:
-    data.table (>= 1.12.2),
-    foreach (>= 1.4.7),
-    imputeTS (>= 3.0),
-    pracma (>= 2.2.5)
+  data.table (>= 1.12.2),
+  imputeTS (>= 3.0),
 Suggests:
-    doParallel (>= 1.0.15),
-    knitr,
-    rmarkdown
+  knitr,
+  rmarkdown
 VignetteBuilder: knitr
