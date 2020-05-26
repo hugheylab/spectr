@@ -1,4 +1,4 @@
 library(testthat)
-library(cspgram)
+library(spectr)
 
-test_check("cspgram")
+test_check("spectr")
