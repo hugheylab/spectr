@@ -10,7 +10,7 @@ test_that('CSP Greedy', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
   #cspGr = cspgram(x, deltat,periodRange = c(20,30), method = 'greedy', dopar = FALSE)
-  cspGr = spectr(x, deltat, method = 'greedy', dopar = FALSE)
+  cspGr = cspgram(x, deltat, method = 'greedy', dopar = FALSE)
   cspGrPeak = cspGr[which.min(log_pval)]
   cspGrExp = fread('cspGr.csv')
   #expect_true(all.equal(cspGr,cspGrExp,check.attributes=FALSE))
@@ -29,7 +29,7 @@ test_that('CSP Standard', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  cspSt = spectr(x, deltat, method = 'standard', dopar = FALSE)
+  cspSt = cspgram(x, deltat, method = 'standard', dopar = FALSE)
   cspStPeak = cspSt[which.min(log_pval)]
   cspStPeakExp = data.table(period = 24,
   chisq = 616.0034,
@@ -46,7 +46,7 @@ test_that('CSP Conservative', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  cspCo = spectr(x, deltat, method = 'conservative', dopar = FALSE)
+  cspCo = cspgram(x, deltat, method = 'conservative', dopar = FALSE)
   cspCoPeak = cspCo[which.min(log_pval)]
   cspCoPeakExp = data.table(period = 25.5,
   chisq = 468.7745,
