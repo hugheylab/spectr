@@ -9,11 +9,13 @@ test_that('CSP Greedy', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  #cspGr = cspgram(x, deltat,periodRange = c(20,30), method = 'greedy', dopar = FALSE)
+  cspGr = cspgram(x, deltat,periodRange = c(20,30), method = 'greedy', dopar = FALSE)
   cspGr = cspgram(x, deltat, method = 'greedy', dopar = FALSE)
   cspGrPeak = cspGr[which.min(log_pval)]
   cspGrExp = fread('cspGr.csv')
-  #expect_true(all.equal(cspGr,cspGrExp,check.attributes=FALSE))
+  allEqTest1 = all.equal(cspGr,cspGrExp,check.attributes=FALSE
+  print(allEqTest1)
+  expect_true(all.equal(cspGr,cspGrExp,check.attributes=FALSE))
   cspGrPeakExp = data.table(period = 24.4,
   chisq = 635.4408,
   df = 243,
