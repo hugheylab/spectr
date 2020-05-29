@@ -13,7 +13,7 @@ test_that('CSP Greedy', {
   cspGr = cspgram(x, deltat, method = 'greedy', dopar = FALSE)
   cspGrPeak = cspGr[which.min(log_pval)]
   cspGrExp = fread('cspGr.csv')
-  allEqTest1 = all.equal(cspGr,cspGrExp,check.attributes=FALSE
+  allEqTest1 = all.equal(cspGr,cspGrExp,check.attributes=FALSE)
   print(allEqTest1)
   expect_true(all.equal(cspGr,cspGrExp,check.attributes=FALSE))
   cspGrPeakExp = data.table(period = 24.4,
