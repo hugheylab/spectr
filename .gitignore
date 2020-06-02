@@ -5,3 +5,14 @@
 .DS_Store
 .DS_Store
 tests/.DS_Store
+tests/.DS_Store
+tests/testthat/conservative_chisqGen.csv
+tests/testthat/greedy_chisqGen.csv
+tests/testthat/lombscargleGen.csv
+tests/testthat/standard_chisqGen.csv
+tests/.DS_Store
+tests/.DS_Store
+tests/.DS_Store
+cspCo.csv
+cspGr.csv
+cspSt.csv
