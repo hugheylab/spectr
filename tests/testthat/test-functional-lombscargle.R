@@ -1,4 +1,4 @@
-context('Lomb Scargle Functional Tests')
+context('Lomb Scargle Functional Test')
 
 
 

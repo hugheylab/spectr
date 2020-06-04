@@ -1,4 +1,4 @@
-context('FFT Functional Tests')
+context('FFT Functional Test')
 
 
 test_that('FFT', {
