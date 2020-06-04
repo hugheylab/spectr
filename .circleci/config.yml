@@ -98,7 +98,7 @@ jobs:
               else
                 echo "No tarball of current version exists on drat repo."
               fi
-              if [ "$DEPLOYTARBALL" = true ]; then
+              if [ "$DEPLOYTARBALL" = true ] && false; then
                 echo "Deploying..."
                 git remote rm origin;
                 git remote add origin https://www.github.com/jschoenbachler/drat.git;
