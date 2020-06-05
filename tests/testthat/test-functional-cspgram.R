@@ -31,7 +31,7 @@ test_that('CSP Standard', {
   cspSt = cspgram(x, deltat, periodRange = c(20,30), method = 'standard', dopar = FALSE)
   fwrite(cspSt, file = "cspStGen.csv")
 
-  cspStExp = fread('spec_Greedy.csv')
+  cspStExp = fread('spec_Stand.csv')
 
   allEqTest2 = all.equal(cspSt, cspStExp, check.attributes = FALSE, tolerance = 0.001)
   write(allEqTest2, file = "allEqTest2.txt")
