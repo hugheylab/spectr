@@ -46,7 +46,7 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "In master branch."
-              git clone https://github.com/jschoenbachler/drat;
+              git clone https://github.com/hugheylab/drat;
               cd drat;
               FILE=src/contrib/${PKG_TARBALL};
               echo "File: $FILE."
@@ -99,16 +99,16 @@ jobs:
                 echo "No tarball of current version exists on drat repo."
               fi
               if [ "$DEPLOYTARBALL" = true ] && false; then
-                echo "Deploying..."
-                git remote rm origin;
-                git remote add origin https://www.github.com/jschoenbachler/drat.git;
-                git config --global user.email "josh.schoenbachler@gmail.com";
-                git config --global user.name "Josh Schoenbachler";
+                echo "Deploying."
+                git clone https://github.com/hugheylab/drat;
+                cd drat;
+                git config --global user.email "jakejhughey@gmail.com";
+                git config --global user.name "Jake Hughey";
                 Rscript -e "install.packages('drat');";
                 Rscript -e "drat::insertPackage('../${PKG_TARBALL}', '.');";
                 git add src/contrib/;
                 git commit -m "Updated ${PKG_NAME} to version ${PKG_VERSION} via CircleCI";
-                git push -q https://jschoenbachler:${GITHUB_TOKEN}@github.com/jschoenbachler/drat.git;
+                git push -q https://jakejh:${GITHUB_TOKEN}@github.com/hugheylab/drat.git;
               fi
             else
               echo "Not deploying source to drat."
