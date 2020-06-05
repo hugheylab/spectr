@@ -15,6 +15,6 @@ test_that('Lomb Scargle', {
   lombscargleExp = fread('spec_Lombs.csv')
 
   lombSAllEqTest = all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001)
-  fwrite(lombSAllEqTest, file = "lombSAllEqTest.txt")
+  write(lombSAllEqTest, file = "lombSAllEqTest.txt")
   expect_true(all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001))
 })

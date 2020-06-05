@@ -15,7 +15,7 @@ test_that('CSP Greedy', {
   cspGrExp = fread('spec_Greedy.csv')
 
   allEqTest1 = all.equal(cspGr, cspGrExp, check.attributes = FALSE)
-  fwrite(allEqTest1, file = "allEqTest1.txt")
+  write(allEqTest1, file = "allEqTest1.txt")
   expect_true(all.equal(cspGr, cspGrExp, check.attributes = FALSE))
 
 })
@@ -34,7 +34,7 @@ test_that('CSP Standard', {
   cspStExp = fread('spec_Greedy.csv')
 
   allEqTest2 = all.equal(cspSt, cspStExp, check.attributes = FALSE, tolerance = 0.001)
-  fwrite(allEqTest2, file = "allEqTest2.txt")
+  write(allEqTest2, file = "allEqTest2.txt")
   expect_true(all.equal(cspSt, cspStExp, check.attributes = FALSE, tolerance = 0.001))
 })
 
@@ -52,6 +52,6 @@ test_that('CSP Conservative', {
   cspCoExp = fread('spec_Cons.csv')
 
   allEqTest3 = all.equal(cspCo, cspCoExp, check.attributes = FALSE, tolerance = 0.001)
-  fwrite(allEqTest3, file = "allEqTest3.txt")
+  write(allEqTest3, file = "allEqTest3.txt")
   expect_true(all.equal(cspCo, cspCoExp, check.attributes = FALSE, tolerance = 0.001))
 })
