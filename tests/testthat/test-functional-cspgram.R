@@ -1,7 +1,6 @@
 context('cspgram Functional Tests')
 
 
-
 test_that('CSP Greedy', {
   library(data.table)
   set.seed(1789)
@@ -9,15 +8,15 @@ test_that('CSP Greedy', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  cspGr = cspgram(x, deltat,periodRange = c(20,30), method = 'greedy', dopar = FALSE)
-  write.csv(cspGr, file = "cspGrGen.csv")
 
-  cspGrExp = fread('cspGr.csv')
-  cspGrExp[,V1:=NULL]
+  cspGr = cspgram(x, deltat, periodRange = c(20,30), method = 'greedy', dopar = FALSE)
+  fwrite(cspGr, file = "cspGrGen.csv")
 
-  allEqTest1 = all.equal(cspGr,cspGrExp,check.attributes=FALSE)
-  write(allEqTest1, file = "allEqTest1.txt")
-  expect_true(all.equal(cspGr,cspGrExp,check.attributes=FALSE))
+  cspGrExp = fread('spec_Greedy.csv')
+
+  allEqTest1 = all.equal(cspGr, cspGrExp, check.attributes = FALSE)
+  fwrite(allEqTest1, file = "allEqTest1.txt")
+  expect_true(all.equal(cspGr, cspGrExp, check.attributes = FALSE))
 
 })
 
@@ -28,15 +27,15 @@ test_that('CSP Standard', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  cspSt = cspgram(x, deltat,periodRange = c(20,30), method = 'standard', dopar = FALSE)
-  write.csv(cspSt, file = "cspStGen.csv")
 
-  cspStExp = fread('cspSt.csv')
-  cspStExp[,V1:=NULL]
+  cspSt = cspgram(x, deltat, periodRange = c(20,30), method = 'standard', dopar = FALSE)
+  fwrite(cspSt, file = "cspStGen.csv")
 
-  allEqTest2 = all.equal(cspSt,cspStExp,check.attributes=FALSE,tolerance = 0.001)
-  write(allEqTest2, file = "allEqTest2.txt")
-  expect_true(all.equal(cspSt,cspStExp,check.attributes=FALSE,tolerance = 0.001))
+  cspStExp = fread('spec_Greedy.csv')
+
+  allEqTest2 = all.equal(cspSt, cspStExp, check.attributes = FALSE, tolerance = 0.001)
+  fwrite(allEqTest2, file = "allEqTest2.txt")
+  expect_true(all.equal(cspSt, cspStExp, check.attributes = FALSE, tolerance = 0.001))
 })
 
 test_that('CSP Conservative', {
@@ -46,13 +45,13 @@ test_that('CSP Conservative', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  cspCo = cspgram(x, deltat,periodRange = c(20,30), method = 'conservative', dopar = FALSE)
-  write.csv(cspCo, file = "cspCoGen.csv")
 
-  cspCoExp = fread('cspCo.csv')
-  cspCoExp[,V1:=NULL]
+  cspCo = cspgram(x, deltat, periodRange = c(20,30), method = 'conservative', dopar = FALSE)
+  fwrite(cspCo, file = "cspCoGen.csv")
 
-  allEqTest3 = all.equal(cspCo,cspCoExp,check.attributes=FALSE,tolerance = 0.001)
-  write(allEqTest3, file = "allEqTest3.txt")
-  expect_true(all.equal(cspCo,cspCoExp,check.attributes=FALSE,tolerance = 0.001))
+  cspCoExp = fread('spec_Cons.csv')
+
+  allEqTest3 = all.equal(cspCo, cspCoExp, check.attributes = FALSE, tolerance = 0.001)
+  fwrite(allEqTest3, file = "allEqTest3.txt")
+  expect_true(all.equal(cspCo, cspCoExp, check.attributes = FALSE, tolerance = 0.001))
 })

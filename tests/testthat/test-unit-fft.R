@@ -8,5 +8,6 @@ test_that('FFT', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  fft = fftpgram(x, deltat,periodRange = c(20,30))
+
+  fft = fftpgram(x, deltat, periodRange = c(20,30))
 })

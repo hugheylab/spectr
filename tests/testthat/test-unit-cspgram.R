@@ -1,7 +1,6 @@
 context('cspgram Unit Tests')
 
 
-
 test_that('CSP Greedy', {
   library(data.table)
   set.seed(1789)
@@ -9,8 +8,8 @@ test_that('CSP Greedy', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  cspGr = cspgram(x, deltat,periodRange = c(20,30), method = 'greedy', dopar = FALSE)
 
+  cspGr = cspgram(x, deltat, periodRange = c(20,30), method = 'greedy', dopar = FALSE)
 })
 
 test_that('CSP Standard', {
@@ -20,7 +19,8 @@ test_that('CSP Standard', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  cspSt = cspgram(x, deltat,periodRange = c(20,30), method = 'standard', dopar = FALSE)
+
+  cspSt = cspgram(x, deltat, periodRange = c(20,30), method = 'standard', dopar = FALSE)
 })
 
 test_that('CSP Conservative', {
@@ -30,5 +30,6 @@ test_that('CSP Conservative', {
   tau = 25
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
-  cspCo = cspgram(x, deltat,periodRange = c(20,30), method = 'conservative', dopar = FALSE)
+
+  cspCo = cspgram(x, deltat, periodRange = c(20,30), method = 'conservative', dopar = FALSE)
 })
