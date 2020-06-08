@@ -10,11 +10,11 @@ test_that('Lomb Scargle', {
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
   lombscargle = lspgram(x, deltat, periodRange = c(20,30))
-  fwrite(lombscargle, file = "lombS_Gen.csv")
+  fwrite(lombscargle, file = "lombs_gen.csv")
 
-  lombscargleExp = fread('spec_Lombs.csv')
+  lombscargleExp = fread('spec_lombs.csv')
 
   lombSAllEqTest = all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001)
-  write(lombSAllEqTest, file = "lombS_All_Eq_Test.txt")
+  write(lombSAllEqTest, file = "lombs_all_eq_test.txt")
   expect_true(all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001))
 })

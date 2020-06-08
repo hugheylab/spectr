@@ -10,11 +10,11 @@ test_that('FFT', {
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
   fft = fftpgram(x, deltat, periodRange = c(20,30))
-  fwrite(fft, file = "fft_Gen.csv")
+  fwrite(fft, file = "fft_gen.csv")
 
-  fftExp = fread('spec_Fft.csv')
+  fftExp = fread('spec_fft.csv')
 
   fftAllEqTest5 = all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001)
-  write(fftAllEqTest5, file = "fft_All_Eq_Test.txt")
+  write(fftAllEqTest5, file = "fft_all_eq_test.txt")
   expect_true(all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001))
 })
