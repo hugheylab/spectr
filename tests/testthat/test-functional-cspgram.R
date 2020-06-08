@@ -10,7 +10,7 @@ test_that('CSP Greedy', {
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
   cspGr = cspgram(x, deltat, periodRange = c(20,30), method = 'greedy', dopar = FALSE)
-  fwrite(cspGr, file = "cspGrGen.csv")
+  fwrite(cspGr, file = "csp_Gr_Gen.csv")
 
   cspGrExp = fread('spec_Greedy.csv')
 
@@ -29,7 +29,7 @@ test_that('CSP Standard', {
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
   cspSt = cspgram(x, deltat, periodRange = c(20,30), method = 'standard', dopar = FALSE)
-  fwrite(cspSt, file = "cspStGen.csv")
+  fwrite(cspSt, file = "csp_St_Gen.csv")
 
   cspStExp = fread('spec_Stand.csv')
 
@@ -47,7 +47,7 @@ test_that('CSP Conservative', {
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
   cspCo = cspgram(x, deltat, periodRange = c(20,30), method = 'conservative', dopar = FALSE)
-  fwrite(cspCo, file = "cspCoGen.csv")
+  fwrite(cspCo, file = "csp_Co_Gen.csv")
 
   cspCoExp = fread('spec_Cons.csv')
 
