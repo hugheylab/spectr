@@ -10,7 +10,7 @@ test_that('Lomb Scargle', {
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
   lombscargle = lspgram(x, deltat, periodRange = c(20,30))
-  fwrite(lombscargle, file = "lombSGen.csv")
+  fwrite(lombscargle, file = "lombS_Gen.csv")
 
   lombscargleExp = fread('spec_Lombs.csv')
 
