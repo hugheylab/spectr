@@ -6,6 +6,7 @@
 .DS_Store
 tests/.DS_Store
 tests/.DS_Store
+*.DS_Store
 tests/testthat/conservative_chisqGen.csv
 tests/testthat/greedy_chisqGen.csv
 tests/testthat/lombscargleGen.csv
