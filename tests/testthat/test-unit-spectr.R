@@ -9,7 +9,7 @@ test_that('spectr CSP Greedy', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  greedy_chisq = spectr(x, deltat, periodRange = c(20,30), method = 'greedy_chisq')
+  greedyChisq = spectr(x, deltat, periodRange = c(20,30), method = 'greedy_chisq')
 
 })
 
@@ -21,7 +21,7 @@ test_that('spectr CSP Conservative', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  conservative_chisq = spectr(x, deltat, periodRange = c(20,30), method = 'conservative_chisq')
+  conservativeChisq = spectr(x, deltat, periodRange = c(20,30), method = 'conservative_chisq')
 })
 
 test_that('spectr CSP Standard', {
@@ -32,7 +32,7 @@ test_that('spectr CSP Standard', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  standard_chisq = spectr(x, deltat, periodRange = c(20,30), method = 'standard_chisq')
+  standardChisq = spectr(x, deltat, periodRange = c(20,30), method = 'standard_chisq')
 })
 
 test_that('spectr Lomb Scargle', {

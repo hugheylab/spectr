@@ -9,14 +9,14 @@ test_that('spectr CSP Greedy', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  greedy_chisq = spectr(x, deltat, periodRange = c(20,30), method = 'greedy_chisq')
-  fwrite(greedy_chisq, file = "spec_greedy_gen.csv")
+  greedyChisq = spectr(x, deltat, periodRange = c(20,30), method = 'greedy_chisq')
+  fwrite(greedyChisq, file = "spec_greedy_gen.csv")
 
-  greedy_chisqExp = fread('spec_greedy.csv')
+  greedyChisqExp = fread('spec_greedy.csv')
 
-  spectrAllEqTest1 = all.equal(greedy_chisq, greedy_chisqExp, check.attributes = FALSE)
-  write(spectrAllEqTest1, file = "spectr_all_eq_test1.txt")
-  expect_true(all.equal(greedy_chisq, greedy_chisqExp, check.attributes = FALSE))
+  spectrAllEqGreedyChisq = all.equal(greedyChisq, greedyChisqExp, check.attributes = FALSE)
+  write(spectrAllEqGreedyChisq, file = "spectr_all_eq_greedy_chisq.txt")
+  expect_true(all.equal(greedyChisq, greedyChisqExp, check.attributes = FALSE))
 
 })
 
@@ -28,14 +28,14 @@ test_that('spectr CSP Conservative', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  conservative_chisq = spectr(x, deltat, periodRange = c(20,30), method = 'conservative_chisq')
-  fwrite(conservative_chisq, file = "spec_cons_gen.csv")
+  conservativeChisq = spectr(x, deltat, periodRange = c(20,30), method = 'conservative_chisq')
+  fwrite(conservativeChisq, file = "spec_cons_gen.csv")
 
-  conservative_chisqExp = fread('spec_cons.csv')
+  conservativeChisqExp = fread('spec_cons.csv')
 
-  spectrAllEqTest2 = all.equal(conservative_chisq, conservative_chisqExp, check.attributes = FALSE, tolerance = 0.001)
-  write(spectrAllEqTest2, file = "spectr_all_eq_test2.txt")
-  expect_true(all.equal(conservative_chisq, conservative_chisqExp, check.attributes = FALSE, tolerance = 0.001))
+  spectrAllEqConsChisq = all.equal(conservativeChisq, conservativeChisqExp, check.attributes = FALSE, tolerance = 0.001)
+  write(spectrAllEqConsChisq, file = "spectr_all_eq_cons_chisq.txt")
+  expect_true(all.equal(conservativeChisq, conservativeChisqExp, check.attributes = FALSE, tolerance = 0.001))
 })
 
 test_that('spectr CSP Standard', {
@@ -46,14 +46,14 @@ test_that('spectr CSP Standard', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  standard_chisq = spectr(x, deltat, periodRange = c(20,30), method = 'standard_chisq')
-  fwrite(standard_chisq, file = "spec_stand_gen.csv")
+  standardChisq = spectr(x, deltat, periodRange = c(20,30), method = 'standard_chisq')
+  fwrite(standardChisq, file = "spec_stand_gen.csv")
 
-  standard_chisqExp = fread('spec_stand.csv')
+  standardChisqExp = fread('spec_stand.csv')
 
-  spectrAllEqTest3 = all.equal(standard_chisq, standard_chisqExp, check.attributes = FALSE, tolerance = 0.001)
-  write(spectrAllEqTest3, file = "spectr_all_eq_test3.txt")
-  expect_true(all.equal(standard_chisq, standard_chisqExp, check.attributes = FALSE, tolerance = 0.001))
+  spectrAllEqStandardChisq = all.equal(standardChisq, standardChisqExp, check.attributes = FALSE, tolerance = 0.001)
+  write(spectrAllEqStandardChisq, file = "spectr_all_eq_standard_chisq.txt")
+  expect_true(all.equal(standardChisq, standardChisqExp, check.attributes = FALSE, tolerance = 0.001))
 })
 
 test_that('spectr Lomb Scargle', {
@@ -69,8 +69,8 @@ test_that('spectr Lomb Scargle', {
 
   lombscargleExp = fread('spec_lombs.csv')
 
-  spectrAllEqTest4 = all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001)
-  write(spectrAllEqTest4, file = "spectr_all_eq_test4.txt")
+  spectrAllEqLombs = all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001)
+  write(spectrAllEqLombs, file = "spectr_all_eq_lombs.txt")
   expect_true(all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001))
 })
 
@@ -83,11 +83,11 @@ test_that('spectr FFT', {
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
   fft = spectr(x, deltat,periodRange = c(20,30), method = 'fft')
-  fwrite(fft, file = "spec_fft_Gen.csv")
+  fwrite(fft, file = "spec_fft_gen.csv")
 
   fftExp = fread('spec_fft.csv')
 
-  spectrAllEqTest5 = all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001)
-  write(spectrAllEqTest5, file = "spectr_all_eq_test5.txt")
+  spectrAllEqFft = all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001)
+  write(spectrAllEqFft, file = "spectr_all_eq_fft.txt")
   expect_true(all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001))
 })

@@ -14,7 +14,7 @@ test_that('FFT', {
 
   fftExp = fread('spec_fft.csv')
 
-  fftAllEqTest5 = all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001)
-  write(fftAllEqTest5, file = "fft_all_eq_test.txt")
+  fftAllEqTest = all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001)
+  write(fftAllEqTest, file = "fft_all_eq_test.txt")
   expect_true(all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001))
 })
