@@ -16,7 +16,7 @@ test_that('CSP Greedy', {
 
   specEqual = all.equal(specObs, specExpect, check.attributes = FALSE)
   write(specEqual, file = "all_eq_csp_gr.txt")
-  expect_true(aspecEqual)
+  expect_true(specEqual)
 
 })
 
