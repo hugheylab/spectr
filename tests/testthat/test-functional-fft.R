@@ -9,12 +9,12 @@ test_that('FFT', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  fft = fftpgram(x, deltat, periodRange = c(20,30))
-  fwrite(fft, file = "fft_gen.csv")
+  specObs = fftpgram(x, deltat, periodRange = c(20,30))
+  fwrite(specObs, file = "fft_gen.csv")
 
-  fftExpect = fread('spec_fft.csv')
+  specExpect = fread('spec_fft.csv')
 
-  fftAllEqTest = all.equal(fft, fftExpect, check.attributes = FALSE, tolerance = 0.001)
-  write(fftAllEqTest, file = "fft_all_eq_test.txt")
-  expect_true(all.equal(fft, fftExpect, check.attributes = FALSE, tolerance = 0.001))
+  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE, tolerance = 0.001)
+  write(specEqual, file = "fft_all_eq_test.txt")
+  expect_true(specEqual)
 })

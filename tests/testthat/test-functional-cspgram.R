@@ -9,14 +9,14 @@ test_that('CSP Greedy', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  cspGr = cspgram(x, deltat, periodRange = c(20,30), method = 'greedy', dopar = FALSE)
-  fwrite(cspGr, file = "csp_gr_gen.csv")
+  specObs = cspgram(x, deltat, periodRange = c(20,30), method = 'greedy', dopar = FALSE)
+  fwrite(specObs, file = "csp_gr_gen.csv")
 
-  cspExpect = fread('spec_greedy.csv')
+  specExpect = fread('spec_greedy.csv')
 
-  allEqCspGr = all.equal(cspGr, cspExpect, check.attributes = FALSE)
-  write(allEqCspGr, file = "all_eq_csp_gr.txt")
-  expect_true(all.equal(cspGr, cspExpect, check.attributes = FALSE))
+  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE)
+  write(specEqual, file = "all_eq_csp_gr.txt")
+  expect_true(aspecEqual)
 
 })
 
@@ -28,14 +28,14 @@ test_that('CSP Standard', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  cspSt = cspgram(x, deltat, periodRange = c(20,30), method = 'standard', dopar = FALSE)
-  fwrite(cspSt, file = "csp_st_gen.csv")
+  specObs = cspgram(x, deltat, periodRange = c(20,30), method = 'standard', dopar = FALSE)
+  fwrite(specObs, file = "csp_st_gen.csv")
 
-  cspExpect = fread('spec_stand.csv')
+  specExpect = fread('spec_stand.csv')
 
-  allEqCspSt = all.equal(cspSt, cspExpect, check.attributes = FALSE, tolerance = 0.001)
-  write(allEqCspSt, file = "all_eq_csp_st.txt")
-  expect_true(all.equal(cspSt, cspExpect, check.attributes = FALSE, tolerance = 0.001))
+  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE, tolerance = 0.001)
+  write(specEqual, file = "all_eq_csp_st.txt")
+  expect_true(specEqual)
 })
 
 test_that('CSP Conservative', {
@@ -46,12 +46,12 @@ test_that('CSP Conservative', {
   tt = seq(0, 24 * 3, deltat)
   x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-  cspCo = cspgram(x, deltat, periodRange = c(20,30), method = 'conservative', dopar = FALSE)
-  fwrite(cspCo, file = "csp_co_gen.csv")
+  specObs = cspgram(x, deltat, periodRange = c(20,30), method = 'conservative', dopar = FALSE)
+  fwrite(specObs, file = "csp_co_gen.csv")
 
-  cspExpect = fread('spec_cons.csv')
+  specExpect = fread('spec_cons.csv')
 
-  allEqCspCo = all.equal(cspCo, cspExpect, check.attributes = FALSE, tolerance = 0.001)
-  write(allEqCspCo, file = "all_eq_csp_co.txt")
-  expect_true(all.equal(cspCo, cspExpect, check.attributes = FALSE, tolerance = 0.001))
+  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE, tolerance = 0.001)
+  write(specEqual, file = "all_eq_csp_co.txt")
+  expect_true(specEqual)
 })
