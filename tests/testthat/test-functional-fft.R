@@ -12,9 +12,9 @@ test_that('FFT', {
   fft = fftpgram(x, deltat, periodRange = c(20,30))
   fwrite(fft, file = "fft_gen.csv")
 
-  fftExp = fread('spec_fft.csv')
+  fftExpect = fread('spec_fft.csv')
 
-  fftAllEqTest = all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001)
+  fftAllEqTest = all.equal(fft, fftExpect, check.attributes = FALSE, tolerance = 0.001)
   write(fftAllEqTest, file = "fft_all_eq_test.txt")
-  expect_true(all.equal(fft, fftExp, check.attributes = FALSE, tolerance = 0.001))
+  expect_true(all.equal(fft, fftExpect, check.attributes = FALSE, tolerance = 0.001))
 })

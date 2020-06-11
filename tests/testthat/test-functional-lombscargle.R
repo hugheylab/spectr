@@ -12,9 +12,9 @@ test_that('Lomb Scargle', {
   lombscargle = lspgram(x, deltat, periodRange = c(20,30))
   fwrite(lombscargle, file = "lombs_gen.csv")
 
-  lombscargleExp = fread('spec_lombs.csv')
+  lombscargleExpect = fread('spec_lombs.csv')
 
-  lombsAllEqTest = all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001)
+  lombsAllEqTest = all.equal(lombscargle, lombscargleExpect, check.attributes = FALSE, tolerance = 0.001)
   write(lombsAllEqTest, file = "lombs_all_eq_test.txt")
-  expect_true(all.equal(lombscargle, lombscargleExp, check.attributes = FALSE, tolerance = 0.001))
+  expect_true(all.equal(lombscargle, lombscargleExpect, check.attributes = FALSE, tolerance = 0.001))
 })

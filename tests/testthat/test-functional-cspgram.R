@@ -12,11 +12,11 @@ test_that('CSP Greedy', {
   cspGr = cspgram(x, deltat, periodRange = c(20,30), method = 'greedy', dopar = FALSE)
   fwrite(cspGr, file = "csp_gr_gen.csv")
 
-  cspGrExp = fread('spec_greedy.csv')
+  cspExpect = fread('spec_greedy.csv')
 
-  allEqCspGr = all.equal(cspGr, cspGrExp, check.attributes = FALSE)
+  allEqCspGr = all.equal(cspGr, cspExpect, check.attributes = FALSE)
   write(allEqCspGr, file = "all_eq_csp_gr.txt")
-  expect_true(all.equal(cspGr, cspGrExp, check.attributes = FALSE))
+  expect_true(all.equal(cspGr, cspExpect, check.attributes = FALSE))
 
 })
 
@@ -31,11 +31,11 @@ test_that('CSP Standard', {
   cspSt = cspgram(x, deltat, periodRange = c(20,30), method = 'standard', dopar = FALSE)
   fwrite(cspSt, file = "csp_st_gen.csv")
 
-  cspStExp = fread('spec_stand.csv')
+  cspExpect = fread('spec_stand.csv')
 
-  allEqCspSt = all.equal(cspSt, cspStExp, check.attributes = FALSE, tolerance = 0.001)
+  allEqCspSt = all.equal(cspSt, cspExpect, check.attributes = FALSE, tolerance = 0.001)
   write(allEqCspSt, file = "all_eq_csp_st.txt")
-  expect_true(all.equal(cspSt, cspStExp, check.attributes = FALSE, tolerance = 0.001))
+  expect_true(all.equal(cspSt, cspExpect, check.attributes = FALSE, tolerance = 0.001))
 })
 
 test_that('CSP Conservative', {
@@ -49,9 +49,9 @@ test_that('CSP Conservative', {
   cspCo = cspgram(x, deltat, periodRange = c(20,30), method = 'conservative', dopar = FALSE)
   fwrite(cspCo, file = "csp_co_gen.csv")
 
-  cspCoExp = fread('spec_cons.csv')
+  cspExpect = fread('spec_cons.csv')
 
-  allEqCspCo = all.equal(cspCo, cspCoExp, check.attributes = FALSE, tolerance = 0.001)
+  allEqCspCo = all.equal(cspCo, cspExpect, check.attributes = FALSE, tolerance = 0.001)
   write(allEqCspCo, file = "all_eq_csp_co.txt")
-  expect_true(all.equal(cspCo, cspCoExp, check.attributes = FALSE, tolerance = 0.001))
+  expect_true(all.equal(cspCo, cspExpect, check.attributes = FALSE, tolerance = 0.001))
 })
