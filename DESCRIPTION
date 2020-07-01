@@ -1,7 +1,7 @@
 Package: spectr
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.0.9012
+Version: 0.0.0.9013
 Authors@R: as.person(c(
   "Jake Hughey <jakejhughey@gmail.com> [aut, cre]",
   "Michael Tackenberg <m.tackenberg@gmail.com> [aut]"))
@@ -11,7 +11,7 @@ URL: https://github.com/hugheylab/spectr
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Depends: R (>= 3.6)
 Imports:

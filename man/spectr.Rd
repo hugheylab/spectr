@@ -50,7 +50,8 @@ spectr(
 \item{periodRange}{Numeric vector of the minimum and maximum values of the
 period to consider, in the same units as \code{deltat} or \code{time}.}
 
-\item{method}{Character indicating which method to use.}
+\item{method}{Character indicating which method to use. Can be an unambiguous
+substring of the full name.}
 
 \item{na.action}{Function specifying how to handle \code{NA} values in \code{x}.
 Default is \code{\link[imputeTS:na_ma]{imputeTS::na_ma()}}, which imputes missing values by weighted
@@ -93,6 +94,12 @@ tau = 25
 tt = seq(0, 24 * 3, deltat)
 x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 
-spec = spectr(x, deltat)
-specPeak = spec[which.min(log_pval)]
+specCsp = spectr(x, deltat, method = 'greedy')
+peakCsp = specCsp[which.min(log_pval)]
+
+specLsp = spectr(x, deltat, method = 'lomb')
+peakLsp = specLsp[which.max(power)]
+
+specFft = spectr(x, deltat, method = 'fft')
+peakFft = specFft[which.max(power)]
 }

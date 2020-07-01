@@ -19,7 +19,8 @@ globalVariables(c('p', 'period', 'chisq', 'df', 'pval', 'log_pval'))
 #'   `deltat` for Lomb-Scargle.
 #' @param periodRange Numeric vector of the minimum and maximum values of the
 #'   period to consider, in the same units as `deltat` or `time`.
-#' @param method Character indicating which method to use.
+#' @param method Character indicating which method to use. Can be an unambiguous
+#'   substring of the full name.
 #' @param pad Numeric value of the proportion of the length of `x` by which to
 #'   pad `x` with zeros. Must be > 0. Only used for FFT.
 #' @param ofac Integer value of the oversampling factor. Must be >= 1. Only used
