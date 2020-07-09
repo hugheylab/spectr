@@ -48,5 +48,5 @@ cspgram = function(x, deltat, periodRange = c(18, 32),
   d[, pval := exp(log_pval)]
 
   data.table::setcolorder(d, 'period')
-  attr(d, 'method') = method
+  setattr(d, 'method', method)
   return(d[])}

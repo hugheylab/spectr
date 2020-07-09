@@ -1,7 +1,7 @@
 Package: spectr
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.0.9013
+Version: 0.0.0.9014
 Authors@R: as.person(c(
   "Jake Hughey <jakejhughey@gmail.com> [aut, cre]",
   "Michael Tackenberg <m.tackenberg@gmail.com> [aut]"))
