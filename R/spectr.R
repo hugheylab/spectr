@@ -9,7 +9,7 @@ globalVariables(c('p', 'period', 'chisq', 'df', 'pval', 'log_pval'))
 #' Calculate periodogram
 #'
 #' Calculate periodogram for a time-course using Lomb-Scargle, fast Fourier
-#' transform, or various version of chi square. The `spectr` function is a
+#' transform, or selected version of chi square. The `spectr` function is a
 #' wrapper for the various methods. `lspgram` is in turn a wrapper for
 #' [lomb::lsp()], and `fftpgram` a wrapper for [stats::spec.pgram()].
 #'

@@ -81,7 +81,7 @@ Lomb-Scargle and FFT, columns will be \code{period} and \code{power}.
 }
 \description{
 Calculate periodogram for a time-course using Lomb-Scargle, fast Fourier
-transform, or various version of chi square. The \code{spectr} function is a
+transform, or selected version of chi square. The \code{spectr} function is a
 wrapper for the various methods. \code{lspgram} is in turn a wrapper for
 \code{\link[lomb:lsp]{lomb::lsp()}}, and \code{fftpgram} a wrapper for \code{\link[stats:spec.pgram]{stats::spec.pgram()}}.
 }
