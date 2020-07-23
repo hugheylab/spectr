@@ -1,8 +1,8 @@
 context('cspgram Unit Tests')
 
+library(data.table)
 
 test_that('CSP Greedy', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25
@@ -13,7 +13,6 @@ test_that('CSP Greedy', {
 })
 
 test_that('CSP Standard', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25
@@ -24,7 +23,6 @@ test_that('CSP Standard', {
 })
 
 test_that('CSP Conservative', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25

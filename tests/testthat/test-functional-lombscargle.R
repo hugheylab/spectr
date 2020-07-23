@@ -1,8 +1,8 @@
 context('Lomb Scargle Functional Test')
 
+library(data.table)
 
 test_that('Lomb Scargle', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25

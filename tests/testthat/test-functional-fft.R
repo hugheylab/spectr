@@ -1,8 +1,8 @@
 context('FFT Functional Test')
 
+library(data.table)
 
 test_that('FFT', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25

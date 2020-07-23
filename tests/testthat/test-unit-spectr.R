@@ -1,8 +1,8 @@
 context('spectr Unit Tests')
 
+library(data.table)
 
 test_that('spectr CSP Greedy', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25
@@ -14,7 +14,6 @@ test_that('spectr CSP Greedy', {
 })
 
 test_that('spectr CSP Conservative', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25
@@ -25,7 +24,6 @@ test_that('spectr CSP Conservative', {
 })
 
 test_that('spectr CSP Standard', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25
@@ -36,7 +34,6 @@ test_that('spectr CSP Standard', {
 })
 
 test_that('spectr Lomb Scargle', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25
@@ -47,7 +44,6 @@ test_that('spectr Lomb Scargle', {
 })
 
 test_that('spectr FFT', {
-  library(data.table)
   set.seed(1789)
   deltat = 0.1
   tau = 25
