@@ -45,8 +45,7 @@ cspgram = function(x, deltat, periodRange = c(18, 32),
   d[, p := NULL]
 
   d[, log_pval := stats::pchisq(chisq, df, lower.tail = FALSE, log.p = TRUE)]
-  d[, pval := exp(log_pval)]
 
   data.table::setcolorder(d, 'period')
-  setattr(d, 'method', method)
+  data.table::setattr(d, 'method', method)
   return(d[])}

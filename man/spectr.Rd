@@ -59,7 +59,7 @@ moving average. Ignored for Lomb-Scargle.}
 
 \item{dopar}{Logical indicating whether to run calculations in parallel if
 a parallel backend is already set up, e.g., using
-\code{\link[doParallel:registerDoParallel]{doParallel::registerDoParallel()}}. Only used for chi square.}
+\code{\link[doParallel:registerDoParallel]{doParallel::registerDoParallel()}}. Only used for chi-square.}
 
 \item{pad}{Numeric value of the proportion of the length of \code{x} by which to
 pad \code{x} with zeros. Must be > 0. Only used for FFT.}
@@ -74,16 +74,18 @@ for Lomb-Scargle.}
 }
 \value{
 A \code{data.table} with various columns depending on the method. For any
-version of chi square, columns will be \code{period}, \code{chisq}, \code{df}, \code{log_pval},
-and \code{pval}. The log p-value is more reliable than the p-value, since R has
-finite precision, so p-values less than about 5e-324 will be set to 0. For
+version of chi-square, columns will be \code{period}, \code{chisq}, \code{df}, and
+\code{log_pval}. The log p-value is more reliable than the p-value, since R has
+finite precision, so p-values less than about 5e-324 would be set to 0. For
 Lomb-Scargle and FFT, columns will be \code{period} and \code{power}.
 }
 \description{
 Calculate periodogram for a time-course using Lomb-Scargle, fast Fourier
-transform, or selected version of chi square. The \code{spectr} function is a
+transform, or selected version of chi-square. The \code{spectr} function is a
 wrapper for the various methods. \code{lspgram} is in turn a wrapper for
-\code{\link[lomb:lsp]{lomb::lsp()}}, and \code{fftpgram} a wrapper for \code{\link[stats:spec.pgram]{stats::spec.pgram()}}.
+\code{\link[lomb:lsp]{lomb::lsp()}}, and \code{fftpgram} a wrapper for \code{\link[stats:spec.pgram]{stats::spec.pgram()}}. Among the
+versions of chi-square, it is highly recommended to use greedy, which has
+lower bias than standard and lower variance than conservative.
 }
 \examples{
 library('data.table')

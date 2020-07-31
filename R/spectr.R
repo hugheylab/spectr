@@ -9,9 +9,11 @@ globalVariables(c('p', 'period', 'chisq', 'df', 'pval', 'log_pval'))
 #' Calculate periodogram
 #'
 #' Calculate periodogram for a time-course using Lomb-Scargle, fast Fourier
-#' transform, or selected version of chi square. The `spectr` function is a
+#' transform, or selected version of chi-square. The `spectr` function is a
 #' wrapper for the various methods. `lspgram` is in turn a wrapper for
-#' [lomb::lsp()], and `fftpgram` a wrapper for [stats::spec.pgram()].
+#' [lomb::lsp()], and `fftpgram` a wrapper for [stats::spec.pgram()]. Among the
+#' versions of chi-square, it is highly recommended to use greedy, which has
+#' lower bias than standard and lower variance than conservative.
 #'
 #' @param x Numeric vector of measurements.
 #' @param deltat Numeric value of the interval between time-points.
@@ -30,13 +32,13 @@ globalVariables(c('p', 'period', 'chisq', 'df', 'pval', 'log_pval'))
 #'   moving average. Ignored for Lomb-Scargle.
 #' @param dopar Logical indicating whether to run calculations in parallel if
 #'   a parallel backend is already set up, e.g., using
-#'   [doParallel::registerDoParallel()]. Only used for chi square.
+#'   [doParallel::registerDoParallel()]. Only used for chi-square.
 #' @param ... Other arguments passed to [stats::spec.pgram()] for FFT.
 #'
 #' @return A `data.table` with various columns depending on the method. For any
-#'   version of chi square, columns will be `period`, `chisq`, `df`, `log_pval`,
-#'   and `pval`. The log p-value is more reliable than the p-value, since R has
-#'   finite precision, so p-values less than about 5e-324 will be set to 0. For
+#'   version of chi-square, columns will be `period`, `chisq`, `df`, and
+#'   `log_pval`. The log p-value is more reliable than the p-value, since R has
+#'   finite precision, so p-values less than about 5e-324 would be set to 0. For
 #'   Lomb-Scargle and FFT, columns will be `period` and `power`.
 #'
 #' @example R/spectr_example.R
