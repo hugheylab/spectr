@@ -4,7 +4,8 @@ Title: Calculate the periodogram of a time-course
 Version: 0.0.0.9015
 Authors@R: as.person(c(
   "Jake Hughey <jakejhughey@gmail.com> [aut, cre]",
-  "Michael Tackenberg <m.tackenberg@gmail.com> [aut]"))
+  "Michael Tackenberg <m.tackenberg@gmail.com> [aut]",
+  "Josh Schoenbachler <joshschoenbachler@gmail.com [ctb]"))
 Description: Provides a consistent interface to use various methods to calculate
   the periodogram and estimate the period of a rhythmic time-course. Methods
   include Lomb-Scargle, fast Fourier transform, and three versions of the
@@ -22,6 +23,7 @@ Imports:
   imputeTS (>= 3.0),
   lomb (>= 1.2)
 Suggests:
+  doParallel (>= 1.0.15),
   knitr,
   rmarkdown,
   testthat (>= 2.3.2)
