@@ -41,9 +41,11 @@
 
 <meta property="og:title" content="Calculate periodogram — cspgram" />
 <meta property="og:description" content="Calculate periodogram for a time-course using Lomb-Scargle, fast Fourier
-transform, or selected version of chi square. The spectr function is a
+transform, or selected version of chi-square. The spectr function is a
 wrapper for the various methods. lspgram is in turn a wrapper for
-lomb::lsp(), and fftpgram a wrapper for stats::spec.pgram()." />
+lomb::lsp(), and fftpgram a wrapper for stats::spec.pgram(). Among the
+versions of chi-square, it is highly recommended to use greedy, which has
+lower bias than standard and lower variance than conservative." />
 
 
 
@@ -75,7 +77,7 @@ lomb::lsp(), and fftpgram a wrapper for stats::spec.pgram()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spectr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
       </span>
     </div>
 
@@ -121,9 +123,11 @@ lomb::lsp(), and fftpgram a wrapper for stats::spec.pgram()." />
 
     <div class="ref-description">
     <p>Calculate periodogram for a time-course using Lomb-Scargle, fast Fourier
-transform, or selected version of chi square. The <code>spectr</code> function is a
+transform, or selected version of chi-square. The <code>spectr</code> function is a
 wrapper for the various methods. <code>lspgram</code> is in turn a wrapper for
-<code><a href='https://rdrr.io/pkg/lomb/man/lsp.html'>lomb::lsp()</a></code>, and <code>fftpgram</code> a wrapper for <code><a href='https://rdrr.io/r/stats/spec.pgram.html'>stats::spec.pgram()</a></code>.</p>
+<code><a href='https://rdrr.io/pkg/lomb/man/lsp.html'>lomb::lsp()</a></code>, and <code>fftpgram</code> a wrapper for <code><a href='https://rdrr.io/r/stats/spec.pgram.html'>stats::spec.pgram()</a></code>. Among the
+versions of chi-square, it is highly recommended to use greedy, which has
+lower bias than standard and lower variance than conservative.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cspgram</span>(
@@ -191,7 +195,7 @@ moving average. Ignored for Lomb-Scargle.</p></td>
       <th>dopar</th>
       <td><p>Logical indicating whether to run calculations in parallel if
 a parallel backend is already set up, e.g., using
-<code><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>doParallel::registerDoParallel()</a></code>. Only used for chi square.</p></td>
+<code><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>doParallel::registerDoParallel()</a></code>. Only used for chi-square.</p></td>
     </tr>
     <tr>
       <th>pad</th>
@@ -217,9 +221,9 @@ for Lomb-Scargle.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.table</code> with various columns depending on the method. For any
-version of chi square, columns will be <code>period</code>, <code>chisq</code>, <code>df</code>, <code>log_pval</code>,
-and <code>pval</code>. The log p-value is more reliable than the p-value, since R has
-finite precision, so p-values less than about 5e-324 will be set to 0. For
+version of chi-square, columns will be <code>period</code>, <code>chisq</code>, <code>df</code>, and
+<code>log_pval</code>. The log p-value is more reliable than the p-value, since R has
+finite precision, so p-values less than about 5e-324 would be set to 0. For
 Lomb-Scargle and FFT, columns will be <code>period</code> and <code>power</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
