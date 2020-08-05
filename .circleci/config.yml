@@ -12,6 +12,7 @@ jobs:
       - run:
           name: Set environmental variables
           command: |
+            apt-get -y install libjpeg-dev
             Rscript \
               -e 'dsc = read.dcf("DESCRIPTION")' \
               -e 'cat(sprintf("export PKG_NAME=%s\n", dsc[,"Package"]))' \
