@@ -1,7 +1,5 @@
 context('lspgram')
 
-# library(data.table)
-
 test_that('Lomb-Scargle', {
   name = 'lsp'
 
@@ -14,9 +12,9 @@ test_that('Lomb-Scargle', {
   periodRange = c(20, 30)
 
   specObs = lspgram(x, deltat, periodRange = periodRange)
-  fwrite(specObs, sprintf('%s_obs.csv', name))
+  data.table::fwrite(specObs, sprintf('%s_obs.csv', name))
 
-  specExpect = fread(sprintf('%s_exp.csv', name))
+  specExpect = data.table::fread(sprintf('%s_exp.csv', name))
 
   specEqual = all.equal(specObs, specExpect, check.attributes = FALSE, tolerance = 0.001)
   write(specEqual, file = sprintf('%s_equal.txt', name))
