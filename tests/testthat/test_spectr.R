@@ -15,7 +15,7 @@ test_that('spectr CSP Greedy', {
   specObs = spectr(x, deltat, periodRange = periodRange, method = 'greedy_chisq', dopar = dopar)
   data.table::fwrite(specObs, sprintf('%s_obs.csv', name))
 
-  specExpect = fread(sprintf('%s_exp.csv', name))
+  specExpect = data.table::fread(sprintf('%s_exp.csv', name))
 
   specEqual = all.equal(specObs, specExpect, check.attributes = FALSE)
   write(specEqual, file = sprintf('%s_equal.txt', name))
