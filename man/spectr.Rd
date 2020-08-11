@@ -104,4 +104,5 @@ peakLsp = specLsp[which.max(power)]
 
 specFft = spectr(x, deltat, method = 'fft')
 peakFft = specFft[which.max(power)]
+
 }

@@ -41,7 +41,23 @@ globalVariables(c('p', 'period', 'chisq', 'df', 'pval', 'log_pval'))
 #'   finite precision, so p-values less than about 5e-324 would be set to 0. For
 #'   Lomb-Scargle and FFT, columns will be `period` and `power`.
 #'
-#' @example R/spectr_example.R
+#' @examples
+#' library('data.table')
+#'
+#' set.seed(1789)
+#' deltat = 0.1
+#' tau = 25
+#' tt = seq(0, 24 * 3, deltat)
+#' x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
+#'
+#' specCsp = spectr(x, deltat, method = 'greedy')
+#' peakCsp = specCsp[which.min(log_pval)]
+#'
+#' specLsp = spectr(x, deltat, method = 'lomb')
+#' peakLsp = specLsp[which.max(power)]
+#'
+#' specFft = spectr(x, deltat, method = 'fft')
+#' peakFft = specFft[which.max(power)]
 #'
 #' @export
 spectr = function(x, deltat, time, periodRange = c(18, 32),
