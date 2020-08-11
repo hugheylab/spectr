@@ -2,7 +2,7 @@
 #' @export
 cspgram = function(x, deltat, periodRange = c(18, 32),
                    method = c('greedy', 'conservative', 'standard'),
-                   na.action = imputeTS::na_ma, dopar = FALSE) {
+                   na.action = stats::na.fail, dopar = FALSE) {
 
   method = match.arg(method)
   checkX(x)

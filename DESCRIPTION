@@ -20,7 +20,6 @@ Depends: R (>= 3.6)
 Imports:
   data.table (>= 1.12.2),
   foreach (>= 1.5.0),
-  imputeTS (>= 3.0),
   lomb (>= 1.2)
 Suggests:
   doParallel (>= 1.0.15),

@@ -13,7 +13,7 @@ cspgram(
   deltat,
   periodRange = c(18, 32),
   method = c("greedy", "conservative", "standard"),
-  na.action = imputeTS::na_ma,
+  na.action = stats::na.fail,
   dopar = FALSE
 )
 
@@ -22,7 +22,7 @@ fftpgram(
   deltat,
   periodRange = c(18, 32),
   pad = 50,
-  na.action = imputeTS::na_ma,
+  na.action = stats::na.fail,
   ...
 )
 
@@ -37,7 +37,7 @@ spectr(
     "fft"),
   ofac = 50,
   pad = 50,
-  na.action = imputeTS::na_ma,
+  na.action = stats::na.fail,
   dopar = FALSE,
   ...
 )

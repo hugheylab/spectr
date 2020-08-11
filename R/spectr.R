@@ -60,11 +60,12 @@ globalVariables(c('p', 'period', 'chisq', 'df', 'pval', 'log_pval'))
 #' peakFft = specFft[which.max(power)]
 #'
 #' @export
-spectr = function(x, deltat, time, periodRange = c(18, 32),
-                  method = c('greedy_chisq', 'conservative_chisq',
-                             'standard_chisq', 'lombscargle', 'fft'),
-                  ofac = 50, pad = 50, na.action = imputeTS::na_ma,
-                  dopar = FALSE, ...) {
+spectr = function(
+  x, deltat, time, periodRange = c(18, 32),
+  method = c('greedy_chisq', 'conservative_chisq', 'standard_chisq',
+             'lombscargle', 'fft'),
+  ofac = 50, pad = 50, na.action = stats::na.fail, dopar = FALSE, ...) {
+
   method = match.arg(method)
 
   if (endsWith(method, 'chisq')) {

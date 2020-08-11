@@ -1,7 +1,8 @@
 #' @rdname spectr
 #' @export
 fftpgram = function(x, deltat, periodRange = c(18, 32), pad = 50,
-                    na.action = imputeTS::na_ma, ...) {
+                    na.action = stats::na.fail, ...) {
+
   checkX(x)
   checkSingleNum(deltat, 0, FALSE)
   checkPeriodRange(periodRange)
