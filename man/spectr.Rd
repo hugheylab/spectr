@@ -54,8 +54,8 @@ period to consider, in the same units as \code{deltat} or \code{time}.}
 substring of the full name.}
 
 \item{na.action}{Function specifying how to handle \code{NA} values in \code{x}.
-Default is \code{\link[imputeTS:na_ma]{imputeTS::na_ma()}}, which imputes missing values by weighted
-moving average. Ignored for Lomb-Scargle.}
+Default is \code{\link[stats:na.fail]{stats::na.fail()}}, which gives an error if any values are
+missing. Ignored for Lomb-Scargle.}
 
 \item{dopar}{Logical indicating whether to run calculations in parallel if
 a parallel backend is already set up, e.g., using

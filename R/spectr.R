@@ -28,8 +28,8 @@ globalVariables(c('p', 'period', 'chisq', 'df', 'pval', 'log_pval'))
 #' @param ofac Integer value of the oversampling factor. Must be >= 1. Only used
 #'   for Lomb-Scargle.
 #' @param na.action Function specifying how to handle `NA` values in `x`.
-#'   Default is [imputeTS::na_ma()], which imputes missing values by weighted
-#'   moving average. Ignored for Lomb-Scargle.
+#'   Default is [stats::na.fail()], which gives an error if any values are
+#'   missing. Ignored for Lomb-Scargle.
 #' @param dopar Logical indicating whether to run calculations in parallel if
 #'   a parallel backend is already set up, e.g., using
 #'   [doParallel::registerDoParallel()]. Only used for chi-square.
