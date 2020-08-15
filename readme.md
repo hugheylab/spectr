@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/hugheylab/spectr.svg?style=shield)](https://circleci.com/gh/hugheylab/spectr)
 [![codecov](https://codecov.io/gh/hugheylab/spectr/branch/master/graph/badge.svg)](https://codecov.io/gh/hugheylab/spectr)
 
-`spectr` provides a consistent interface to use various methods to calculate the periodogram of a time-course. The methods include Lomb-Scargle, fast Fourier transform, and three versions of the chi-square periodogram.
+`spectr` provides a consistent interface to use various methods to calculate the periodogram of a time-course. The methods include Lomb-Scargle, fast Fourier transform, and three versions of the chi-square periodogram. To see how we've used `spectr`, check out the [preprint](https://doi.org/10.1101/2020.08.14.251512).
 
 ## Installation
 
