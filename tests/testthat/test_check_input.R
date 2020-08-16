@@ -1,5 +1,3 @@
-context('check_input')
-
 test_that('checkX', {
   expect_error(checkX(x = c('aaa', 2)))
 })

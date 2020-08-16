@@ -1,5 +1,3 @@
-context('spectr')
-
 set.seed(1789)
 deltat = 0.1
 tau = 25
@@ -9,68 +7,42 @@ x = 3 * sin(tt / tau * 2 * pi) + rnorm(length(tt))
 periodRange = c(20, 30)
 dopar = FALSE
 
-test_that('spectr CSP Greedy', {
+test_that('spectr CSP greedy', {
   name = 'spectr_greedy'
-
-  specObs = spectr(x, deltat, periodRange = periodRange, method = 'greedy_chisq', dopar = dopar)
-  data.table::fwrite(specObs, sprintf('%s_obs.csv', name))
-
-  specExpect = data.table::fread(sprintf('%s_exp.csv', name))
-
-  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE)
-  write(specEqual, file = sprintf('%s_equal.txt', name))
-  expect_true(specEqual)
+  specObs = spectr(x, deltat, periodRange = periodRange,
+                   method = 'greedy_chisq', dopar = dopar)
+  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
+  expect_equal(specObs, specExpect, check.attributes = FALSE)
 })
 
-test_that('spectr CSP Conservative', {
+test_that('spectr CSP conservative', {
   name = 'spectr_conservative'
-
   specObs = spectr(x, deltat, periodRange = periodRange,
                    method = 'conservative_chisq', dopar = dopar)
-  data.table::fwrite(specObs, sprintf('%s_obs.csv', name))
-
-  specExpect = data.table::fread(sprintf('%s_exp.csv', name))
-
-  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE, tolerance = 0.001)
-  write(specEqual, file = sprintf('%s_equal.txt', name))
-  expect_true(specEqual)
+  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
+  expect_equal(specObs, specExpect, check.attributes = FALSE)
 })
 
-test_that('spectr CSP Standard', {
+test_that('spectr CSP standard', {
   name = 'spectr_standard'
-
-  specObs = spectr(x, deltat, periodRange = periodRange, method = 'standard_chisq', dopar = dopar)
-  data.table::fwrite(specObs, sprintf('%s_obs.csv', name))
-
-  specExpect = data.table::fread(sprintf('%s_exp.csv', name))
-
-  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE, tolerance = 0.001)
-  write(specEqual, file = sprintf('%s_equal.txt', name))
-  expect_true(specEqual)
+  specObs = spectr(x, deltat, periodRange = periodRange,
+                   method = 'standard_chisq', dopar = dopar)
+  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
+  expect_equal(specObs, specExpect, check.attributes = FALSE)
 })
 
 test_that('spectr Lomb-Scargle', {
   name = 'spectr_lsp'
-
-  specObs = spectr(x, deltat, periodRange = periodRange, method = 'lombscargle')
-  data.table::fwrite(specObs, sprintf('%s_obs.csv', name))
-
-  specExpect = data.table::fread(sprintf('%s_exp.csv', name))
-
-  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE, tolerance = 0.001)
-  write(specEqual, file = sprintf('%s_equal.txt', name))
-  expect_true(specEqual)
+  specObs = spectr(x, deltat, periodRange = periodRange,
+                   method = 'lombscargle', dopar = dopar)
+  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
+  expect_equal(specObs, specExpect, check.attributes = FALSE)
 })
 
 test_that('spectr FFT', {
   name = 'spectr_fft'
-
-  specObs = spectr(x, deltat,periodRange = periodRange, method = 'fft')
-  data.table::fwrite(specObs, sprintf('%s_obs.csv', name))
-
-  specExpect = data.table::fread(sprintf('%s_exp.csv', name))
-
-  specEqual = all.equal(specObs, specExpect, check.attributes = FALSE, tolerance = 0.001)
-  write(specEqual, file = sprintf('%s_equal.txt', name))
-  expect_true(specEqual)
+  specObs = spectr(x, deltat, periodRange = periodRange,
+                   method = 'fft', dopar = dopar)
+  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
+  expect_equal(specObs, specExpect, check.attributes = FALSE)
 })
