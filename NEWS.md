@@ -1,3 +1,6 @@
+# spectr 1.0.0
+* Updated for lomb 2.0
+
 # spectr 0.0.0.9017
 * Switched to using `stats::na.fail` for default `na.action`
 

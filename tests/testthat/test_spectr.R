@@ -11,38 +11,43 @@ test_that('spectr CSP greedy', {
   name = 'spectr_greedy'
   specObs = spectr(x, deltat, periodRange = periodRange,
                    method = 'greedy_chisq', dopar = dopar)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
 
 test_that('spectr CSP conservative', {
   name = 'spectr_conservative'
   specObs = spectr(x, deltat, periodRange = periodRange,
                    method = 'conservative_chisq', dopar = dopar)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
 
 test_that('spectr CSP standard', {
   name = 'spectr_standard'
   specObs = spectr(x, deltat, periodRange = periodRange,
                    method = 'standard_chisq', dopar = dopar)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
 
 test_that('spectr Lomb-Scargle', {
   name = 'spectr_lsp'
   specObs = spectr(x, deltat, periodRange = periodRange,
                    method = 'lombscargle', dopar = dopar)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
 
 test_that('spectr FFT', {
   name = 'spectr_fft'
   specObs = spectr(x, deltat, periodRange = periodRange,
                    method = 'fft', dopar = dopar)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })

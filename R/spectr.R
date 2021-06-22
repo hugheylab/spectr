@@ -69,8 +69,8 @@ spectr = function(
   method = match.arg(method)
 
   if (endsWith(method, 'chisq')) {
-    spec = cspgram(x, deltat, periodRange, gsub('_chisq', '', method),
-                   na.action, dopar)
+    spec = cspgram(
+      x, deltat, periodRange, gsub('_chisq', '', method), na.action, dopar)
   } else if (method == 'lombscargle') {
     spec = lspgram(x, deltat, time, periodRange, ofac)
   } else { # method == 'fft'

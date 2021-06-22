@@ -11,36 +11,41 @@ test_that('CSP greedy', {
   name = 'csp_greedy'
   specObs = cspgram(x, deltat, periodRange = periodRange,
                     method = 'greedy', dopar = dopar)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
 
 test_that('CSP conservative', {
   name = 'csp_conservative'
   specObs = cspgram(x, deltat, periodRange = periodRange,
                     method = 'conservative', dopar = dopar)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
 
 test_that('CSP standard', {
   name = 'csp_standard'
   specObs = cspgram(x, deltat, periodRange = periodRange,
                     method = 'standard', dopar = dopar)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
 
 test_that('FFT', {
   name = 'fft'
   specObs = fftpgram(x, deltat, periodRange = periodRange)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
 
 test_that('Lomb-Scargle', {
   name = 'lsp'
   specObs = lspgram(x, deltat, periodRange = periodRange)
-  specExpect = data.table::fread(sprintf('spec_%s.csv', name))
-  expect_equal(specObs, specExpect, check.attributes = FALSE)
+  # qs::qsave(specObs, sprintf('spec_%s.qs', name))
+  specExp = qs::qread(sprintf('spec_%s.qs', name))
+  expect_equal(specObs, specExp)
 })
