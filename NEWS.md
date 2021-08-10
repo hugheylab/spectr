@@ -1,3 +1,6 @@
+# spectr 1.0.1
+* Revised code to not need `globalVariables()` in order to pass R CMD check.
+
 # spectr 1.0.0
 * Updated for lomb 2.0
 

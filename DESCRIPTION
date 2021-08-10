@@ -1,7 +1,7 @@
 Package: spectr
 Type: Package
 Title: Calculate the periodogram of a time-course
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: as.person(c(
   "Jake Hughey <jakejhughey@gmail.com> [aut, cre]",
   "Michael Tackenberg <m.tackenberg@gmail.com> [aut]",

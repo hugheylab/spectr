@@ -3,6 +3,7 @@
 cspgram = function(x, deltat, periodRange = c(18, 32),
                    method = c('greedy', 'conservative', 'standard'),
                    na.action = stats::na.fail, dopar = FALSE) {
+  p = period = df = log_pval = chisq = NULL
 
   method = match.arg(method)
   checkX(x)

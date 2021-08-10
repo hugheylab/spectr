@@ -3,7 +3,6 @@
 NULL
 
 
-globalVariables(c('p', 'period', 'chisq', 'df', 'pval', 'log_pval'))
 
 
 #' Calculate periodogram

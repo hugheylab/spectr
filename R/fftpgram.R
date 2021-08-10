@@ -2,6 +2,7 @@
 #' @export
 fftpgram = function(x, deltat, periodRange = c(18, 32), pad = 50,
                     na.action = stats::na.fail, ...) {
+  period = NULL
   checkX(x)
   checkSingleNum(deltat, 0, FALSE)
   checkPeriodRange(periodRange)

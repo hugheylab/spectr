@@ -1,6 +1,7 @@
 #' @rdname spectr
 #' @export
 lspgram = function(x, deltat, time, periodRange = c(18, 32), ofac = 50) {
+  period = NULL
   checkX(x)
   time = checkTime(x, deltat, time)
   checkPeriodRange(periodRange)
