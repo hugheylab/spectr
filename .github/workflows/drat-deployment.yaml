@@ -45,6 +45,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd ${PKG_NAME}
           Rscript \
             -e 'install.packages(c("devtools", "BiocManager"))' \
             -e 'repos = BiocManager::repositories("https://hugheylab.github.io/drat/")' \
