@@ -47,6 +47,7 @@ jobs:
       - name: Build Package
         run: |
           cd ${PKG_NAME}
+          ls
           R CMD build . --md5
           cd ../
 
