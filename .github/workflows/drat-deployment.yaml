@@ -42,13 +42,13 @@ jobs:
             -e 'cat(sprintf("export PKG_VERSION=%s\n", dsc[,"Version"]))' \
             -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
 
-      - uses: r-lib/actions/setup-r-dependencies@v1
+      # - uses: r-lib/actions/setup-r-dependencies@v1
 
-      - name: Build Package
-        run: |
-          ls
-          R CMD build . --md5
-          cd ../
+      # - name: Build Package
+      #   run: |
+      #     ls
+      #     R CMD build . --md5
+      #     cd ../
 
       - run: ls
       - run: cd ${PKG_NAME}
