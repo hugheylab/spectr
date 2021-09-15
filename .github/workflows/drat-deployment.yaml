@@ -64,8 +64,8 @@ jobs:
           cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'cat(sprintf("export PKG_VERSION=%s\n", dsc[,"Version"]))' \
-            -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
+            -e 'cat(sprintf("PKG_VERSION=%s\n", dsc[,"Version"]))' \
+            -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
           cd ../drat
           FILE=src/contrib/${PKG_TARBALL}
           echo "File: $FILE."
@@ -88,7 +88,7 @@ jobs:
             cd ../drat
 
             mkdir ../tmpDir2
-            tar xvzf "../drat/src/contrib/$PKG_TARBALL" -C ../tmpDir2/
+            tar xvzf "../drat/src/contrib/${PKG_TARBALL}" -C ../tmpDir2/
 
             echo "Checking for previous MD5 file."
             MD5FILE="../tmpDir2/${PKG_NAME}/MD5"
@@ -143,7 +143,7 @@ jobs:
             git config --global user.name "Jake Hughey"
             Rscript \
               -e "install.packages('drat')" \
-              -e "drat::insertPackage('../$PKG_TARBALL', '.')"
+              -e "drat::insertPackage('../${PKG_TARBALL}', '.')"
             git add src/contrib/
             git commit -m "Updated to ${PKG_NAME} $PKG_VERSION via GitHub Actions"
             git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat_testing.git
