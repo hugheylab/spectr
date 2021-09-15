@@ -58,7 +58,7 @@ jobs:
       - run: ls ${PKG_NAME}
       - run: ls drat
       - run: echo ${{ github.ref }}
-      - name: Clean install dependencies and build
+      - name: Check to deploy
         if: ${{ endswith(github.ref, '/master') || endswith(github.ref, '/main')  }}
         run: |
           cd ${PKG_NAME}
