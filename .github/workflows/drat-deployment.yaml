@@ -42,18 +42,21 @@ jobs:
             -e 'cat(sprintf("export PKG_VERSION=%s\n", dsc[,"Version"]))' \
             -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
 
-      # - uses: r-lib/actions/setup-r-dependencies@v1
+      - name: Install dependencies
+        run: |
+          Rscript \
+            -e 'install.packages(c("devtools", "BiocManager"))'
+            -e 'repos = BiocManager::repositories("https://hugheylab.github.io/drat/")' \
+            -e 'devtools::install_dev_deps(dependencies = TRUE, repos = repos, upgrade = TRUE)' \
+            -e 'install.packages("covr")'
 
-      # - name: Build Package
-      #   run: |
-      #     ls
-      #     R CMD build . --md5
-      #     cd ../
+      - name: Build Package
+        run: |
+          ls
+          R CMD build . --md5
+          cd ../
 
       - run: ls
-      - run: cd ${PKG_NAME}
-      - run: ls
-      - run: cd ../
       - run: ls ${PKG_NAME}
       - run: ls drat
       - name: Clean install dependencies and build
