@@ -69,7 +69,7 @@ jobs:
             >> ${GITHUB_ENV}
           cd ../drat
           FILE=src/contrib/${PKG_TARBALL}
-          echo "File: $FILE."
+          echo "File: ${FILE}."
           DEPLOYTARBALL=true
           if test -f "$FILE"
           then
