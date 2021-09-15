@@ -64,10 +64,10 @@ jobs:
           cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'cat(sprintf("PKG_VERSION=%s\n", dsc[,"Version"]))' \
-            -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
+            -e 'cat(sprintf("export PKG_VERSION=%s\n", dsc[,"Version"]))' \
+            -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
           cd ../drat
-          FILE=src/contrib/$PKG_TARBALL
+          FILE=src/contrib/${PKG_TARBALL}
           echo "File: $FILE."
           DEPLOYTARBALL=true
           if test -f "$FILE"
