@@ -65,7 +65,8 @@ jobs:
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("PKG_VERSION=%s\n", dsc[,"Version"]))' \
-            -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))' >> ${GITHUB_ENV}
+            -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))' \
+            >> ${GITHUB_ENV}
           echo $PKG_TARBALL
           echo ${PKG_TARBALL}
           cd ../drat
