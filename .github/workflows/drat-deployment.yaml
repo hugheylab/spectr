@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      PKG_NAME: ${{ github.event.repository.name }}
 
     steps:
       - uses: actions/checkout@v2
@@ -26,5 +27,5 @@ jobs:
           path: drat
 
       - run: ls
-      - run: ls ${{ github.workspace }}
+      - run: ls ${PKG_NAME}
       - run: ls drat
