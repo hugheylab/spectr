@@ -43,9 +43,8 @@ jobs:
             -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
 
       - name: Get dependencies
+        run: cd ${PKG_NAME}
         uses: r-lib/actions/setup-r-dependencies@v1
-        with:
-          path: ${{ github.event.repository.name }}
 
       - name: Build Package
         run: |
