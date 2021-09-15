@@ -41,20 +41,20 @@ jobs:
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("export PKG_VERSION=%s\n", dsc[,"Version"]))' \
             -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
+            >> $GITHUB_ENV
 
       - name: Install dependencies
         run: |
           Rscript \
-            -e 'install.packages(c("devtools", "BiocManager"))'
+            -e 'install.packages(c("devtools", "BiocManager"))' \
             -e 'repos = BiocManager::repositories("https://hugheylab.github.io/drat/")' \
             -e 'devtools::install_dev_deps(dependencies = TRUE, repos = repos, upgrade = TRUE)' \
             -e 'install.packages("covr")'
 
       - name: Build Package
         run: |
-          ls
+          cd ${PKG_NAME}
           R CMD build . --md5
-          cd ../
 
       - run: ls
       - run: ls ${PKG_NAME}
@@ -62,6 +62,6 @@ jobs:
       - name: Clean install dependencies and build
         run: |
           cd drat
-          # FILE=src/contrib/${PKG_TARBALL}
-          # echo "File: $FILE."
+          FILE=src/contrib/${PKG_TARBALL}
+          echo "File: $FILE."
           DEPLOYTARBALL=true
