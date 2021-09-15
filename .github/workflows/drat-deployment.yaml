@@ -14,6 +14,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       PKG_NAME: ${{ github.event.repository.name }}
+      DEPLOYABLE_BRANCH: ${{ [github.event.repository.branch = "master" or github.event.repository.branch = 'main'] }}
 
     steps:
       - uses: actions/checkout@v2
@@ -54,7 +55,7 @@ jobs:
       - run: ls drat
       - name: Clean install dependencies and build
         run: |
-          cd {$PKG_NAME}
+          cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("PKG_VERSION=%s\n", dsc[,"Version"]))' \
@@ -128,7 +129,7 @@ jobs:
             echo "No tarball of current version exists on drat repo, deploying."
           fi
 
-          if [ "$DEPLOYTARBALL" = true ]
+          if [ false ]
           then
             echo "Deploying."
             cd ../drat
