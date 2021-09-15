@@ -14,7 +14,6 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       PKG_NAME: ${{ github.event.repository.name }}
-      DEPLOYABLE_BRANCH: ${GITHUB_REF##*/}
 
     steps:
       - uses: actions/checkout@v2
@@ -53,8 +52,9 @@ jobs:
       - run: ls
       - run: ls ${PKG_NAME}
       - run: ls drat
+      - run: echo ${{ github.ref }}
       - name: Clean install dependencies and build
-        if: ${{ github.event.repository.branch == 'main' || github.event.repository.branch == 'master' }}
+        if: ${{ github.ref == 'main' || github.ref == 'master' }}
         run: |
           cd ${PKG_NAME}
           Rscript \
