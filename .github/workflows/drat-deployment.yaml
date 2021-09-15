@@ -33,6 +33,14 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+      
+      - name: Set environmental variables
+        run: |
+          cd ${PKG_NAME}
+          Rscript \
+            -e 'dsc = read.dcf("DESCRIPTION")' \
+            -e 'cat(sprintf("export PKG_VERSION=%s\n", dsc[,"Version"]))' \
+            -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
 
       - uses: r-lib/actions/setup-r-dependencies@v1
 
