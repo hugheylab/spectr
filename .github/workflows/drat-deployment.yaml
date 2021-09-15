@@ -64,7 +64,7 @@ jobs:
           cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'cat(sprintf("PKG_VERSION=%s\n", dsc[,"Version"]))'
+            -e 'cat(sprintf("PKG_VERSION=%s\n", dsc[,"Version"]))' \
             -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))' >> ${GITHUB_ENV}
           echo $PKG_TARBALL
           echo ${PKG_TARBALL}
@@ -147,6 +147,6 @@ jobs:
               -e "install.packages('drat')" \
               -e "drat::insertPackage('../${PKG_TARBALL}', '.')"
             git add src/contrib/
-            git commit -m "Updated to ${PKG_NAME} $PKG_VERSION via GitHub Actions"
-            git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat_testing.git
+            # git commit -m "Updated to ${PKG_NAME} $PKG_VERSION via GitHub Actions"
+            # git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat_testing.git
           fi
