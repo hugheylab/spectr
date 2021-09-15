@@ -26,6 +26,16 @@ jobs:
           repository: hugheylab/drat
           path: drat
 
+      - name: Build Package
+        run: R CMD build . --md5
+        working-directory: ${PKG_NAME}
+
       - run: ls
       - run: ls ${PKG_NAME}
       - run: ls drat
+      - name: Clean install dependencies and build
+        run: |
+          cd drat
+          # FILE=src/contrib/${PKG_TARBALL}
+          # echo "File: $FILE."
+          DEPLOYTARBALL=true
