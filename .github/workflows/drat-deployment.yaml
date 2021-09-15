@@ -66,10 +66,8 @@ jobs:
           cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'cat(sprintf("export PKG_NAME=%s\n", dsc[,"Package"]))' \
-            -e 'cat(sprintf("export PKG_VERSION=%s\n", dsc[,"Version"]))' \
-            -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))' \
-            >> ${GITHUB_ENV}
+            -e 'cat(sprintf("export PKG_VERSION=%s >> ${GITHUB_ENV}", dsc[,"Version"]))' \
+            -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz >> ${GITHUB_ENV}", dsc[,"Package"], dsc[,"Version"]))'
           echo $PKG_TARBALL
           echo ${PKG_TARBALL}
           cd ../drat
