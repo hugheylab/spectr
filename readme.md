@@ -1,5 +1,6 @@
 # spectr
 
+[![R-CMD-check](https://github.com/hugheylab/spectr/workflows/R-CMD-check/badge.svg)](https://github.com/hugheylab/spectr/actions)
 [![CircleCI](https://circleci.com/gh/hugheylab/spectr.svg?style=shield)](https://circleci.com/gh/hugheylab/spectr)
 [![codecov](https://codecov.io/gh/hugheylab/spectr/branch/master/graph/badge.svg)](https://codecov.io/gh/hugheylab/spectr)
 
