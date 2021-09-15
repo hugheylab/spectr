@@ -66,6 +66,7 @@ jobs:
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("PKG_VERSION=%s\n", dsc[,"Version"]))' \
             -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))'
+            >> ${GITHUB_ENV}
           cd ../drat
           FILE=src/contrib/${PKG_TARBALL}
           echo "File: $FILE."
