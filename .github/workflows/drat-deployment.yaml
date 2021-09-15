@@ -27,8 +27,10 @@ jobs:
           path: drat
 
       - name: Build Package
-        run: R CMD build . --md5
-        working-directory: ./${PKG_NAME}
+        run: |
+          cd ${PKG_NAME}
+          R CMD build . --md5
+          cd ../
 
       - run: ls
       - run: ls ${PKG_NAME}
