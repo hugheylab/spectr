@@ -14,7 +14,11 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       PKG_NAME: ${{ github.event.repository.name }}
-      BRANCH_NAME: ${{ if (github.event_name == "pull_request") github.head_ref else github.repository }}
+      REPOSITORY_NAME: ${{ github.repository }}
+      EVENT_NAME: ${{ github.event_name }}
+      BRANCH_NAME: ${{ github.ref }}
+      HEAD_REF: ${{ github.head_ref }}
+      BASE_REF: ${{ github.base_ref }}
 
     steps:
       - uses: actions/checkout@v2
