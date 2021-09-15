@@ -58,16 +58,20 @@ jobs:
       - run: ls ${PKG_NAME}
       - run: ls drat
       - run: echo ${{ github.ref }}
-      - name: Check to deploy
-        if: ${{ endswith(github.ref, '/master') || endswith(github.ref, '/action-testing')  }}
+
+      - name: Set environmental variables
         run: |
-          cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("export PKG_NAME=%s\n", dsc[,"Package"]))' \
             -e 'cat(sprintf("export PKG_VERSION=%s\n", dsc[,"Version"]))' \
             -e 'cat(sprintf("export PKG_TARBALL=%s_%s.tar.gz\n", dsc[,"Package"], dsc[,"Version"]))' \
-            >> ${BASH_ENV}
+            >> ${GITHUB_ENV}
+
+      - name: Check to deploy
+        if: ${{ endswith(github.ref, '/master') || endswith(github.ref, '/action-testing')  }}
+        run: |
+          cd ${PKG_NAME}
           echo $PKG_TARBALL
           echo ${PKG_TARBALL}
           cd ../drat
