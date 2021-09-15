@@ -28,7 +28,7 @@ jobs:
       - name: Checkout drat repo
         uses: actions/checkout@v2
         with:
-          repository: hugheylab/drat
+          repository: hugheylab/drat_test
           path: drat
 
       - uses: r-lib/actions/setup-pandoc@v1
@@ -146,5 +146,5 @@ jobs:
               -e "drat::insertPackage('../$PKG_TARBALL', '.')"
             git add src/contrib/
             git commit -m "Updated to ${PKG_NAME} $PKG_VERSION via GitHub Actions"
-            git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat.git
+            git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat_test.git
           fi
