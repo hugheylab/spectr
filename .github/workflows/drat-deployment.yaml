@@ -70,7 +70,7 @@ jobs:
             -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))'
             >> $GITHUB_ENV
           echo "Tarball1: $PKG_TARBALL"
-          echo "Tarball2: ${PKG_TARBALL}""
+          echo "Tarball2: ${PKG_TARBALL}"
           cd ../drat
           FILE=src/contrib/${PKG_TARBALL}
           echo "File: $FILE."
