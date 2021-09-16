@@ -83,6 +83,7 @@ jobs:
   drat-deployment:
     needs: [R-CMD-check, test-coverage]
     runs-on: ubuntu-latest
+    if: ${{ endswith(github.ref, '/master') || endswith(github.ref, '/main')  }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       PKG_NAME: ${{ github.event.repository.name }}
@@ -140,7 +141,6 @@ jobs:
           
 
       - name: Check to deploy
-        if: ${{ endswith(github.ref, '/master') || endswith(github.ref, '/main')  }}
         run: |
           cd ${PKG_NAME}
           echo "Version1: $PKG_VERSION"
