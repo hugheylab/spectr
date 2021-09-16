@@ -52,7 +52,6 @@ jobs:
 
       - run: ls
       - run: ls ${PKG_NAME}
-      - run: ls drat
       - run: echo ${{ github.ref }}
 
       - name: Set environmental variables 
