@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: hugheylab/drat_testing
-          path: drat
+          path: ${PKG_NAME}/drat
 
       - uses: r-lib/actions/setup-pandoc@v1
 
@@ -72,7 +72,7 @@ jobs:
           echo "Version2: ${PKG_VERSION}"
           echo "Tarball1: $PKG_TARBALL"
           echo "Tarball1: ${PKG_TARBALL}"
-          cd ../drat
+          cd drat
           FILE=src/contrib/${PKG_TARBALL}
           echo "File: $FILE."
           DEPLOYTARBALL=true
@@ -80,7 +80,7 @@ jobs:
           then
             echo "Package tarball of current version exists on drat repo."
             mkdir ../tmpDir1
-            tar xvzf "../$PKG_TARBALL" -C ../tmpDir1/
+            tar xvzf "../${PKG_TARBALL}" -C ../tmpDir1/
             sed -i '/DESCRIPTION$/d' ../tmpDir1/${PKG_NAME}/MD5
             sed -i '/build\/.*$/d' ../tmpDir1/${PKG_NAME}/MD5
             sed -i '/inst\/doc\/.*$/d' ../tmpDir1/${PKG_NAME}/MD5
