@@ -63,7 +63,7 @@ jobs:
           ls
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'print(paste("PKG_VERSION=", dsc[,"Version"]))'
+            -e 'print(paste0("PKG_VERSION=", dsc[,"Version"]))'
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))'
