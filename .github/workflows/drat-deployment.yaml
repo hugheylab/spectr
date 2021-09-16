@@ -60,7 +60,7 @@ jobs:
           cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'system(cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))' \
+            -e 'system(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))' \
             >> $GITHUB_ENV
           ls
 
@@ -69,7 +69,7 @@ jobs:
           cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'system(sprintf("echo \"PKG_VERSION=%s\" >> $GITHUB_ENV", dsc[,"Version"])' \
+            -e 'system(sprintf("echo \"PKG_VERSION=%s\" >> $GITHUB_ENV", dsc[,"Version"]))' \
             >>$GITHUB_ENV
           echo "Version1: $PKG_VERSION"
           echo "Version2: ${PKG_VERSION}"
