@@ -67,6 +67,7 @@ jobs:
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("PKG_VERSION=%s", dsc[,"Version"]))'
+            >> ${BASH_ENV}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))'
