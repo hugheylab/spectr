@@ -150,6 +150,6 @@ jobs:
               -e "install.packages('drat')" \
               -e "drat::insertPackage('../${PKG_TARBALL}', '.')"
             git add src/contrib/
-            # git commit -m "Updated to ${PKG_NAME} $PKG_VERSION via GitHub Actions"
-            # git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat_testing.git
+            git commit -m "Updated to ${PKG_NAME} $PKG_VERSION via GitHub Actions"
+            git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat_testing.git
           fi
