@@ -62,6 +62,7 @@ jobs:
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'system(cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))' \
             >> $GITHUB_ENV
+          ls
 
       - name: Set environmental variables 2
         run: |
@@ -69,6 +70,7 @@ jobs:
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'system(sprintf("echo \"PKG_VERSION=%s\" >> $GITHUB_ENV", dsc[,"Version"])' \
+            >>$GITHUB_ENV
           echo "Version1: $PKG_VERSION"
           echo "Version2: ${PKG_VERSION}"
           
