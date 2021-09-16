@@ -55,33 +55,19 @@ jobs:
       - run: ls drat
       - run: echo ${{ github.ref }}
 
-      - name: Set environmental variables
+      - name: Set environmental variables 
         run: |
           cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'system(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))' \
-            >> $GITHUB_ENV
-          ls
-
-      - name: Set environmental variables 2
-        run: |
-          cd ${PKG_NAME}
-          Rscript \
-            -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'system(sprintf("echo \"PKG_VERSION=%s\" >> $GITHUB_ENV", dsc[,"Version"]))'
-          echo "Version1: $PKG_VERSION"
-          echo "Version2: ${PKG_VERSION}"
+            -e 'system(sprintf("echo \"PKG_VERSION=%s\" >> $GITHUB_ENV", dsc[,"Version"]))' \
+            -e 'system(sprintf("echo \"PKG_TARBALL=%s_%s.tar.gz\" >> $GITHUB_ENV", dsc[,"Package"], dsc[,"Version"]))'
           
 
       - name: Check to deploy
         if: ${{ endswith(github.ref, '/master') || endswith(github.ref, '/action-testing')  }}
         run: |
           cd ${PKG_NAME}
-          ls
-          Rscript \
-            -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))'
           echo "Version1: $PKG_VERSION"
           echo "Version2: ${PKG_VERSION}"
           echo "Tarball1: $PKG_TARBALL"
