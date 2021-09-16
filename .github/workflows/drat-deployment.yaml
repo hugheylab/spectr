@@ -60,8 +60,17 @@ jobs:
           cd ${PKG_NAME}
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))'
+            -e 'system(cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))'
             >> $GITHUB_ENV
+
+      - name: Set environmental variables 2
+        run: |
+          cd ${PKG_NAME}
+          Rscript \
+            -e 'dsc = read.dcf("DESCRIPTION")' \
+            -e 'system(sprintf("echo \"PKG_VERSION=%s\" >> $GITHUB_ENV", dsc[,"Version"])'
+          echo "Version1: $PKG_VERSION"
+          echo "Version2: ${PKG_VERSION}"
           
 
       - name: Check to deploy
@@ -71,13 +80,11 @@ jobs:
           ls
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
-            -e 'cat(sprintf("PKG_VERSION=%s", dsc[,"Version"]))'
-            >> ${BASH_ENV}
-          Rscript \
-            -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("PKG_TARBALL=%s_%s.tar.gz", dsc[,"Package"], dsc[,"Version"]))'
-          echo $PKG_TARBALL
-          echo ${PKG_TARBALL}
+          echo "Version1: $PKG_VERSION"
+          echo "Version2: ${PKG_VERSION}"
+          echo "Tarball1: $PKG_TARBALL"
+          echo "Tarball1: ${PKG_TARBALL}"
           cd ../drat
           FILE=src/contrib/${PKG_TARBALL}
           echo "File: $FILE."
