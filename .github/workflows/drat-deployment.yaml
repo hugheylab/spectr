@@ -54,16 +54,13 @@ jobs:
       - run: ls ${PKG_NAME}
       - run: ls drat
       - run: echo ${{ github.ref }}
-
-      - name: Set environmental variables
-        run: |
-          cd ${PKG_NAME}
           
 
       - name: Check to deploy
         if: ${{ endswith(github.ref, '/master') || endswith(github.ref, '/action-testing')  }}
         run: |
           cd ${PKG_NAME}
+          ls
           Rscript \
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'cat(sprintf("PKG_VERSION=%s", dsc[,"Version"]))'
