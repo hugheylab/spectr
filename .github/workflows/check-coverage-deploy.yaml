@@ -60,7 +60,6 @@ jobs:
           path: check
 
   test-coverage:
-    needs: R-CMD-check
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
