@@ -103,6 +103,7 @@ jobs:
         with:
           repository: hugheylab/drat_testing
           path: ${{ github.event.repository.name }}/drat
+          token: ${{ secrets.JAKEJH_PAT }}
 
       - uses: r-lib/actions/setup-pandoc@v1
 
