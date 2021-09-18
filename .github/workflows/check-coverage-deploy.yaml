@@ -98,13 +98,6 @@ jobs:
         with:
           path: ${{ github.event.repository.name }}
 
-      - name: Checkout drat repo
-        uses: actions/checkout@v2
-        with:
-          repository: hugheylab/drat_testing
-          path: ${{ github.event.repository.name }}/drat
-          token: ${{ secrets.JAKEJH_PAT }}
-
       - uses: r-lib/actions/setup-pandoc@v1
 
       - uses: r-lib/actions/setup-r@v1
@@ -139,6 +132,13 @@ jobs:
             -e 'dsc = read.dcf("DESCRIPTION")' \
             -e 'system(sprintf("echo \"PKG_VERSION=%s\" >> $GITHUB_ENV", dsc[,"Version"]))' \
             -e 'system(sprintf("echo \"PKG_TARBALL=%s_%s.tar.gz\" >> $GITHUB_ENV", dsc[,"Package"], dsc[,"Version"]))'
+
+      - name: Checkout drat repo
+        uses: actions/checkout@v2
+        with:
+          repository: hugheylab/drat_testing
+          path: ${{ github.event.repository.name }}/drat
+          token: ${{ secrets.JAKEJH_PAT }}
           
 
       - name: Check to deploy
