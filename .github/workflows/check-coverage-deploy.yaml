@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ endswith(github.ref, '/master') || endswith(github.ref, '/main') || endswith(github.ref, '/action-testing')  }}
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_PAT: ${{ secrets.JAKEJH_PAT }}
       PKG_NAME: ${{ github.event.repository.name }}
       REPOSITORY_NAME: ${{ github.repository }}
       EVENT_NAME: ${{ github.event_name }}
