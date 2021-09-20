@@ -100,15 +100,13 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
       
-
       - name: Install dependencies
         run: |
-          cd ${PKG_NAME}
-          Rscript \
-            -e 'install.packages(c("devtools", "BiocManager"))' \
-            -e 'repos = BiocManager::repositories("https://hugheylab.github.io/drat/")' \
-            -e 'devtools::install_dev_deps(dependencies = TRUE, repos = repos, upgrade = TRUE)' \
-            -e 'install.packages("covr")'
+          install.packages(c("devtools", "BiocManager"))
+          repos = BiocManager::repositories("https://hugheylab.github.io/drat/")
+          devtools::install_dev_deps(dependencies = TRUE, repos = repos, upgrade = TRUE)
+        shell: Rscript {0}
+        working-directory: ./${{ github.event.repository.name }}
 
       - name: Build Package
         run: |
