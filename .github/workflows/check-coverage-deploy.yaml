@@ -59,6 +59,7 @@ jobs:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
 
+
   test-coverage:
     runs-on: ubuntu-latest
     env:
@@ -78,6 +79,7 @@ jobs:
       - name: Test coverage
         run: covr::codecov()
         shell: Rscript {0}
+
 
   drat-deployment:
     needs: [R-CMD-check, test-coverage]
@@ -135,61 +137,61 @@ jobs:
           cd drat
           FILE=src/contrib/${PKG_TARBALL}
           echo "File: ${FILE}."
-          DEPLOYTARBALL=true
+          DEPLOY_TARBALL=true
           if test -f "${FILE}"
           then
             echo "Package tarball of current version exists on drat repo."
-            mkdir ../tmpDir1
-            tar xvzf "../${PKG_TARBALL}" -C ../tmpDir1/
-            sed -i '/DESCRIPTION$/d' ../tmpDir1/${PKG_NAME}/MD5
-            sed -i '/build\/.*$/d' ../tmpDir1/${PKG_NAME}/MD5
-            sed -i '/inst\/doc\/.*$/d' ../tmpDir1/${PKG_NAME}/MD5
-            MD5FILECUR=$(cat ../tmpDir1/${PKG_NAME}/MD5)
+            mkdir ../tmpDirNew
+            tar xvzf "../${PKG_TARBALL}" -C ../tmpDirNew/
+            sed -i '/DESCRIPTION$/d' ../tmpDirNew/${PKG_NAME}/MD5
+            sed -i '/build\/.*$/d' ../tmpDirNew/${PKG_NAME}/MD5
+            sed -i '/inst\/doc\/.*$/d' ../tmpDirNew/${PKG_NAME}/MD5
+            MD5_FILE_NEW=$(cat ../tmpDirNew/${PKG_NAME}/MD5)
 
-            echo "Current MD5: ${MD5FILECUR}"
+            echo "Current MD5: ${MD5_FILE_NEW}"
 
-            sed -i '/Packaged:/d' ../tmpDir1/${PKG_NAME}/DESCRIPTION
-            cd ../tmpDir1/
-            SHADESC1=$(sha256sum ${PKG_NAME}/DESCRIPTION)
+            sed -i '/Packaged:/d' ../tmpDirNew/${PKG_NAME}/DESCRIPTION
+            cd ../tmpDirNew/
+            SHA_DESC_NEW=$(sha256sum ${PKG_NAME}/DESCRIPTION)
             cd ../drat
 
-            mkdir ../tmpDir2
-            tar xvzf "../drat/src/contrib/${PKG_TARBALL}" -C ../tmpDir2/
+            mkdir ../tmpDirOld
+            tar xvzf "../drat/src/contrib/${PKG_TARBALL}" -C ../tmpDirOld/
 
             echo "Checking for previous MD5 file."
-            MD5FILE="../tmpDir2/${PKG_NAME}/MD5"
+            MD5_FILE="../tmpDirOld/${PKG_NAME}/MD5"
 
-            if test -f "${MD5FILE}"
+            if test -f "${MD5_FILE}"
             then
               echo "Found previous MD5 file."
 
-              sed -i '/DESCRIPTION$/d' ../tmpDir2/${PKG_NAME}/MD5
-              sed -i '/build\/.*$/d' ../tmpDir2/${PKG_NAME}/MD5
-              sed -i '/inst\/doc\/.*$/d' ../tmpDir2/${PKG_NAME}/MD5
-              MD5FILEPREV=$(cat ../tmpDir2/${PKG_NAME}/MD5)
+              sed -i '/DESCRIPTION$/d' ../tmpDirOld/${PKG_NAME}/MD5
+              sed -i '/build\/.*$/d' ../tmpDirOld/${PKG_NAME}/MD5
+              sed -i '/inst\/doc\/.*$/d' ../tmpDirOld/${PKG_NAME}/MD5
+              MD5_FILE_OLD=$(cat ../tmpDirOld/${PKG_NAME}/MD5)
 
-              echo "Previous MD5: ${MD5FILEPREV}"
+              echo "Previous MD5: ${MD5_FILE_OLD}"
 
-              sed -i '/Packaged:/d' ../tmpDir2/${PKG_NAME}/DESCRIPTION
-              cd ../tmpDir2/
-              SHADESC2=$(sha256sum ${PKG_NAME}/DESCRIPTION)
+              sed -i '/Packaged:/d' ../tmpDirOld/${PKG_NAME}/DESCRIPTION
+              cd ../tmpDirOld/
+              SHA_DESC_OLD=$(sha256sum ${PKG_NAME}/DESCRIPTION)
               cd ../drat
 
-              echo "SHADESC1: ${SHADESC1}"
-              echo "SHADESC2: ${SHADESC2}"
+              echo "SHA_DESC_NEW: ${SHA_DESC_NEW}"
+              echo "SHA_DESC_OLD: ${SHA_DESC_OLD}"
 
-              cd ../tmpDir1
-              SHATARBALLTMP=$(sha256sum ${PKG_NAME}/MD5)
-              echo "SHATAR1: ${SHATARBALLTMP}"
-              cd ../tmpDir2
-              SHATARBALLGT=$(sha256sum ${PKG_NAME}/MD5)
-              echo "SHATAR2: ${SHATARBALLGT}"
+              cd ../tmpDirNew
+              SHA_TARBALL_NEW=$(sha256sum ${PKG_NAME}/MD5)
+              echo "SHATAR1: ${SHA_TARBALL_NEW}"
+              cd ../tmpDirOld
+              SHA_TARBALL_OLD=$(sha256sum ${PKG_NAME}/MD5)
+              echo "SHATAR2: ${SHA_TARBALL_OLD}"
               cd ../drat
 
-              if [ "${SHATARBALLGT}" = "${SHATARBALLTMP}" ] && [ "${SHADESC1}" = "${SHADESC2}" ]
+              if [ "${SHA_TARBALL_OLD}" = "${SHA_TARBALL_NEW}" ] && [ "${SHA_DESC_NEW}" = "${SHA_DESC_OLD}" ]
               then
                 echo "SHAs match, not deploying."
-                DEPLOYTARBALL=false
+                DEPLOY_TARBALL=false
               else
                 echo "SHAs don't match, deploying."
               fi
@@ -201,7 +203,7 @@ jobs:
             echo "No tarball of current version exists on drat repo, deploying."
           fi
 
-          if [ ${DEPLOYTARBALL} = true ]
+          if [ ${DEPLOY_TARBALL} = true ]
           then
             echo "Deploying."
             cd ../drat
@@ -211,6 +213,6 @@ jobs:
               -e "install.packages('drat')" \
               -e "drat::insertPackage('../${PKG_TARBALL}', '.')"
             git add src/contrib/
-            git commit -m "Updated to ${PKG_NAME} $PKG_VERSION via GitHub Actions"
+            git commit -m "Updated to ${PKG_NAME} ${PKG_VERSION} via GitHub Actions"
             git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat.git
           fi
