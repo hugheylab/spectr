@@ -117,11 +117,11 @@ jobs:
 
       - name: Set environmental variables
         run: |
-          setwd('${PKG_NAME}')
           dsc = read.dcf("DESCRIPTION")
           system(sprintf("echo \"PKG_VERSION=%s\" >> $GITHUB_ENV", dsc[,"Version"]))
           system(sprintf("echo \"PKG_TARBALL=%s_%s.tar.gz\" >> $GITHUB_ENV", dsc[,"Package"], dsc[,"Version"]))
         shell: Rscript {0}
+        working-directory: ./${{ github.event.repository.name }}
 
       - name: Checkout drat repo
         uses: actions/checkout@v2
