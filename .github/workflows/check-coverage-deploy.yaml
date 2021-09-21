@@ -100,12 +100,13 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
       
-      - name: Install dependencies
+      - name: Setup for dependency install
         run: |
           install.packages(c("devtools", "BiocManager"))
           repos = BiocManager::repositories("https://hugheylab.github.io/drat/")
-          devtools::install_dev_deps(dependencies = TRUE, repos = repos, upgrade = TRUE)
         shell: Rscript {0}
+
+      - uses: r-lib/actions/setup-r-dependencies@v1
 
       - name: Build Package
         run: |
@@ -207,6 +208,6 @@ jobs:
               -e "install.packages('drat')" \
               -e "drat::insertPackage('../${PKG_TARBALL}', '.')"
             git add src/contrib/
-            # git commit -m "Updated to ${PKG_NAME} ${PKG_VERSION} via GitHub Actions"
-            git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat.git
+            git commit -m "Updated to ${PKG_NAME} ${PKG_VERSION} via GitHub Actions"
+            # git push -q https://jakejh:${GITHUB_PAT}@github.com/hugheylab/drat.git
           fi
