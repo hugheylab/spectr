@@ -99,14 +99,11 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
-      
-      - name: Setup for dependency install
-        run: |
-          install.packages(c("devtools", "BiocManager"))
-          repos = BiocManager::repositories("https://hugheylab.github.io/drat/")
-        shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v1
+        with:
+          extra-packages: |
+            devtools
 
       - name: Build Package
         run: |
