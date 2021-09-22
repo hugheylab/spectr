@@ -120,7 +120,6 @@ jobs:
           path: drat
           token: ${{ secrets.JAKEJH_PAT }}
           
-
       - name: Check to deploy
         run: |
           cd drat
