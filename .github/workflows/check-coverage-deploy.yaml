@@ -101,9 +101,6 @@ jobs:
           use-public-rspm: true
 
       - uses: r-lib/actions/setup-r-dependencies@v1
-        with:
-          extra-packages: |
-            devtools
 
       - name: Build Package
         run: |
