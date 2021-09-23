@@ -25,7 +25,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: hugheylab/actions/R-CMD-check@ALPHA
+      - uses: hugheylab/actions/R-CMD-check@ALPHA2
 
 
   test-coverage:
@@ -34,7 +34,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: hugheylab/actions/test-coverage@ALPHA
+      - uses: hugheylab/actions/test-coverage@ALPHA2
 
 
   drat-deployment:
