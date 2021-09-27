@@ -46,3 +46,5 @@ jobs:
 
     steps:
       - uses: hugheylab/actions/drat-deployment@alpha
+        with:
+          personal-token: ${{ secrets.JAKEJH_PAT }}
