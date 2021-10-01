@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
+          - {os: macOS-latest, r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,  r: 'release'}
           - {os: ubuntu-latest,  r: 'oldrel-1'}
@@ -43,3 +43,4 @@ jobs:
       - uses: hugheylab/actions/drat-deployment@main
         with:
           personal-token: ${{ secrets.JAKEJH_PAT }}
+
