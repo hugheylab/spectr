@@ -10,7 +10,7 @@ Description: Provides a consistent interface to use various methods to calculate
   the periodogram and estimate the period of a rhythmic time-course. Methods
   include Lomb-Scargle, fast Fourier transform, and three versions of the
   chi-square periodogram.
-URL: https://github.com/hugheylab/spectr
+URL: https://spectr.hugheylab.org, https://github.com/hugheylab/spectr
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
