@@ -227,24 +227,24 @@ finite precision, so p-values less than about 5e-324 would be set to 0. For
 Lomb-Scargle and FFT, columns will be <code>period</code> and <code>power</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://r-datatable.com'>'data.table'</a></span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1789</span><span class='op'>)</span>
-<span class='va'>deltat</span> <span class='op'>=</span> <span class='fl'>0.1</span>
-<span class='va'>tau</span> <span class='op'>=</span> <span class='fl'>25</span>
-<span class='va'>tt</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>24</span> <span class='op'>*</span> <span class='fl'>3</span>, <span class='va'>deltat</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>=</span> <span class='fl'>3</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>tt</span> <span class='op'>/</span> <span class='va'>tau</span> <span class='op'>*</span> <span class='fl'>2</span> <span class='op'>*</span> <span class='va'>pi</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>tt</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>specCsp</span> <span class='op'>=</span> <span class='fu'>spectr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>deltat</span>, method <span class='op'>=</span> <span class='st'>'greedy'</span><span class='op'>)</span>
-<span class='va'>peakCsp</span> <span class='op'>=</span> <span class='va'>specCsp</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.min</a></span><span class='op'>(</span><span class='va'>log_pval</span><span class='op'>)</span><span class='op'>]</span>
-
-<span class='va'>specLsp</span> <span class='op'>=</span> <span class='fu'>spectr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>deltat</span>, method <span class='op'>=</span> <span class='st'>'lomb'</span><span class='op'>)</span>
-<span class='va'>peakLsp</span> <span class='op'>=</span> <span class='va'>specLsp</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span><span class='op'>(</span><span class='va'>power</span><span class='op'>)</span><span class='op'>]</span>
-
-<span class='va'>specFft</span> <span class='op'>=</span> <span class='fu'>spectr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>deltat</span>, method <span class='op'>=</span> <span class='st'>'fft'</span><span class='op'>)</span>
-<span class='va'>peakFft</span> <span class='op'>=</span> <span class='va'>specFft</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span><span class='op'>(</span><span class='va'>power</span><span class='op'>)</span><span class='op'>]</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://r-datatable.com'>'data.table'</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1789</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>deltat</span> <span class='op'>=</span> <span class='fl'>0.1</span></span>
+<span class='r-in'><span class='va'>tau</span> <span class='op'>=</span> <span class='fl'>25</span></span>
+<span class='r-in'><span class='va'>tt</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>24</span> <span class='op'>*</span> <span class='fl'>3</span>, <span class='va'>deltat</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>=</span> <span class='fl'>3</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>tt</span> <span class='op'>/</span> <span class='va'>tau</span> <span class='op'>*</span> <span class='fl'>2</span> <span class='op'>*</span> <span class='va'>pi</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>tt</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>specCsp</span> <span class='op'>=</span> <span class='fu'>spectr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>deltat</span>, method <span class='op'>=</span> <span class='st'>'greedy'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>peakCsp</span> <span class='op'>=</span> <span class='va'>specCsp</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.min</a></span><span class='op'>(</span><span class='va'>log_pval</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>specLsp</span> <span class='op'>=</span> <span class='fu'>spectr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>deltat</span>, method <span class='op'>=</span> <span class='st'>'lomb'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>peakLsp</span> <span class='op'>=</span> <span class='va'>specLsp</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span><span class='op'>(</span><span class='va'>power</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>specFft</span> <span class='op'>=</span> <span class='fu'>spectr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>deltat</span>, method <span class='op'>=</span> <span class='st'>'fft'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>peakFft</span> <span class='op'>=</span> <span class='va'>specFft</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span><span class='op'>(</span><span class='va'>power</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
