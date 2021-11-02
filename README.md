@@ -1,6 +1,6 @@
 # spectr
 
-[![check-coverage-deploy](https://github.com/hugheylab/spectr/workflows/check-coverage-deploy/badge.svg)](https://github.com/hugheylab/spectr/actions)
+[![check-deploy](https://github.com/hugheylab/spectr/workflows/check-deploy/badge.svg)](https://github.com/hugheylab/spectr/actions)
 [![codecov](https://codecov.io/gh/hugheylab/spectr/branch/master/graph/badge.svg)](https://codecov.io/gh/hugheylab/spectr)
 
 `spectr` provides a consistent interface to use various methods to calculate the periodogram of a time-course. The methods include Lomb-Scargle, fast Fourier transform, and three versions of the chi-square periodogram. To see how we've used `spectr`, check out the [paper](https://doi.org/10.1371/journal.pcbi.1008567).
