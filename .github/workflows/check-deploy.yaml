@@ -3,7 +3,7 @@
 on:
   push:
   schedule:
-    - cron: '17 30 * * *'
+    - cron: '30 17 * * *'
 
 name: check-deploy
 
