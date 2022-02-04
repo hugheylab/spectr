@@ -33,3 +33,6 @@ You can also see the results of R CMD check on Windows, Linux, and MacOS by goin
 
 ## Downstream dependencies
 There are no downstream dependencies for spectr.
+
+## Tests
+When checking locally, tests take about 1.4s total. If this is too long for tests let us know and we can skip some tests on CRAN.
