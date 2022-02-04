@@ -1,8 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^readme\.md$
-^\.circleci$
 ^_pkgdown\.yml$
 ^docs$
-^NEWS\.md$
 ^\.github$
+^cran-comments\.md$
