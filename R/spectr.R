@@ -26,7 +26,7 @@ NULL
 #'   pad `x` with zeros. Must be > 0. Only used for FFT.
 #' @param ofac Integer value of the oversampling factor. Must be >= 1. Only used
 #'   for Lomb-Scargle.
-#' @param na.action Function specifying how to handle `NA` values in `x`.
+#' @param naAction Function specifying how to handle `NA` values in `x`.
 #'   Default is [stats::na.fail()], which gives an error if any values are
 #'   missing. Ignored for Lomb-Scargle.
 #' @param dopar Logical indicating whether to run calculations in parallel if
@@ -63,15 +63,15 @@ spectr = function(
   x, deltat, time, periodRange = c(18, 32),
   method = c('greedy_chisq', 'conservative_chisq', 'standard_chisq',
              'lombscargle', 'fft'),
-  ofac = 50, pad = 50, na.action = stats::na.fail, dopar = FALSE, ...) {
+  ofac = 50, pad = 50, naAction = stats::na.fail, dopar = FALSE, ...) {
 
   method = match.arg(method)
 
   if (endsWith(method, 'chisq')) {
     spec = cspgram(
-      x, deltat, periodRange, gsub('_chisq', '', method), na.action, dopar)
+      x, deltat, periodRange, gsub('_chisq', '', method), naAction, dopar)
   } else if (method == 'lombscargle') {
     spec = lspgram(x, deltat, time, periodRange, ofac)
   } else { # method == 'fft'
-    spec = fftpgram(x, deltat, periodRange, pad, na.action, ...)}
+    spec = fftpgram(x, deltat, periodRange, pad, naAction, ...)}
   return(spec)}

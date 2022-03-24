@@ -1,7 +1,7 @@
 Package: spectr
 Type: Package
 Title: Calculate the Periodogram of a Time-Course
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(person('Jake', 'Hughey', , 'jakejhughey@gmail.com', c('aut', 'cre')),
   person('Michael', 'Tackenberg', , 'm.tackenberg@gmail.com', 'aut'),
   person('Josh', 'Schoenbachler', , 'josh.schoenbachler@gmail.com', 'ctb'))
@@ -14,7 +14,7 @@ URL: https://spectr.hugheylab.org, https://github.com/hugheylab/spectr
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Depends: R (>= 3.6)
 Imports:
