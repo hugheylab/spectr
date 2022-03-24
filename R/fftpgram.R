@@ -1,7 +1,7 @@
 #' @rdname spectr
 #' @export
 fftpgram = function(x, deltat, periodRange = c(18, 32), pad = 50,
-                    naAction = stats::na.fail, ...) {
+                    na.action = stats::na.fail, ...) {
   period = NULL
   checkX(x)
   checkSingleNum(deltat, 0, FALSE)
@@ -10,7 +10,7 @@ fftpgram = function(x, deltat, periodRange = c(18, 32), pad = 50,
 
   pg = stats::spec.pgram(
     stats::ts(x, deltat = deltat), plot = FALSE, pad = pad,
-    na.action = naAction, ...)
+    na.action = na.action, ...)
 
   spec = data.table(period = 1 / pg$freq, power = pg$spec)
   data.table::setorderv(spec, 'period')

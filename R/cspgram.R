@@ -2,7 +2,7 @@
 #' @export
 cspgram = function(x, deltat, periodRange = c(18, 32),
                    method = c('greedy', 'conservative', 'standard'),
-                   naAction = stats::na.fail, dopar = FALSE) {
+                   na.action = stats::na.fail, dopar = FALSE) {
   p = period = df = log_pval = chisq = NULL
 
   method = match.arg(method)
@@ -19,7 +19,7 @@ cspgram = function(x, deltat, periodRange = c(18, 32),
   } else {
     doOp = `%do%`}
 
-  x = naAction(x)
+  x = na.action(x)
   k = length(x) %/% max(pSpan) # for conservative
   m = mean(x) # for greedy
   n = length(x)

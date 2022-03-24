@@ -13,7 +13,7 @@ cspgram(
   deltat,
   periodRange = c(18, 32),
   method = c("greedy", "conservative", "standard"),
-  naAction = stats::na.fail,
+  na.action = stats::na.fail,
   dopar = FALSE
 )
 
@@ -22,7 +22,7 @@ fftpgram(
   deltat,
   periodRange = c(18, 32),
   pad = 50,
-  naAction = stats::na.fail,
+  na.action = stats::na.fail,
   ...
 )
 
@@ -37,7 +37,7 @@ spectr(
     "fft"),
   ofac = 50,
   pad = 50,
-  naAction = stats::na.fail,
+  na.action = stats::na.fail,
   dopar = FALSE,
   ...
 )
@@ -53,7 +53,7 @@ period to consider, in the same units as \code{deltat} or \code{time}.}
 \item{method}{Character indicating which method to use. Can be an unambiguous
 substring of the full name.}
 
-\item{naAction}{Function specifying how to handle \code{NA} values in \code{x}.
+\item{na.action}{Function specifying how to handle \code{NA} values in \code{x}.
 Default is \code{\link[stats:na.fail]{stats::na.fail()}}, which gives an error if any values are
 missing. Ignored for Lomb-Scargle.}
 
