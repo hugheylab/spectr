@@ -1,0 +1,6 @@
+filename,line_number,message,line
+R/cspgram.R,5,Variable and function name style should be camelCase.,"na.action = stats::na.fail, dopar = FALSE) {"
+R/cspgram.R,6,Variable and function name style should be camelCase.,p = period = df = log_pval = chisq = NULL
+R/cspgram.R,48,Variable and function name style should be camelCase.,"d[, log_pval := stats::pchisq(chisq, df, lower.tail = FALSE, log.p = TRUE)]"
+R/fftpgram.R,4,Variable and function name style should be camelCase.,"na.action = stats::na.fail, ...) {"
+R/spectr.R,66,Variable and function name style should be camelCase.,"ofac = 50, pad = 50, na.action = stats::na.fail, dopar = FALSE, ...) {"
