@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/hugheylab/spectr/branch/master/graph/badge.svg)](https://codecov.io/gh/hugheylab/spectr)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/eea83c4a-3e36-4245-8195-d0c15115832b/deploy-status)](https://app.netlify.com/sites/kind-edison-268732/deploys)
 [![CRAN Status](https://www.r-pkg.org/badges/version/spectr)](https://cran.r-project.org/package=spectr)
-[![drat version](https://github.com/hugheylab/drat/badges/spectr_drat_badge.svg)](https://github.com/hugheylab/drat/src/contrib)
+[![drat version](https://github.com/hugheylab/drat/tree/gh-pages/badges/spectr_drat_badge.svg)](https://github.com/hugheylab/drat/tree/gh-pages/src/contrib)
 
 `spectr` provides a consistent interface to use various methods to calculate the periodogram of a time-course. The methods include Lomb-Scargle, fast Fourier transform, and three versions of the chi-square periodogram. To see how we've used `spectr`, check out the [paper](https://doi.org/10.1371/journal.pcbi.1008567).
 
