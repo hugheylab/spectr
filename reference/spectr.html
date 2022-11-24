@@ -4,7 +4,7 @@ transform, or selected version of chi-square. The spectr function is a
 wrapper for the various methods. lspgram is in turn a wrapper for
 lomb::lsp(), and fftpgram a wrapper for stats::spec.pgram(). Among the
 versions of chi-square, it is highly recommended to use greedy, which has
-lower bias than standard and lower variance than conservative."><title>Calculate periodogram — cspgram • spectr</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Calculate periodogram — cspgram"><meta property="og:description" content="Calculate periodogram for a time-course using Lomb-Scargle, fast Fourier
+lower bias than standard and lower variance than conservative."><title>Calculate periodogram — cspgram • spectr</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Calculate periodogram — cspgram"><meta property="og:description" content="Calculate periodogram for a time-course using Lomb-Scargle, fast Fourier
 transform, or selected version of chi-square. The spectr function is a
 wrapper for the various methods. lspgram is in turn a wrapper for
 lomb::lsp(), and fftpgram a wrapper for stats::spec.pgram(). Among the
@@ -38,7 +38,7 @@ lower bias than standard and lower variance than conservative."><!-- mathjax -->
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://www.hugheylab.org/software/" aria-label="Hughey Lab">Hughey Lab</a>
+  <a class="external-link nav-link" href="https://www.hugheylab.org/software/" target="_blank" aria-label="Hughey Lab">Hughey Lab</a>
 </li>
 <li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/hugheylab/spectr/" aria-label="github">
@@ -69,76 +69,97 @@ lower bias than standard and lower variance than conservative.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">cspgram</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">deltat</span>,
-  periodRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">32</span><span class="op">)</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"greedy"</span>, <span class="st">"conservative"</span>, <span class="st">"standard"</span><span class="op">)</span>,
-  na.action <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></span>,
-  dopar <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">fftpgram</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">deltat</span>,
-  periodRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">32</span><span class="op">)</span>,
-  pad <span class="op">=</span> <span class="fl">50</span>,
-  na.action <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">lspgram</span><span class="op">(</span><span class="va">x</span>, <span class="va">deltat</span>, <span class="va">time</span>, periodRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">32</span><span class="op">)</span>, ofac <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
-
-<span class="fu">spectr</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">deltat</span>,
-  <span class="va">time</span>,
-  periodRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">32</span><span class="op">)</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"greedy_chisq"</span>, <span class="st">"conservative_chisq"</span>, <span class="st">"standard_chisq"</span>, <span class="st">"lombscargle"</span>,
-    <span class="st">"fft"</span><span class="op">)</span>,
-  ofac <span class="op">=</span> <span class="fl">50</span>,
-  pad <span class="op">=</span> <span class="fl">50</span>,
-  na.action <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></span>,
-  dopar <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cspgram</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">deltat</span>,</span>
+<span>  periodRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">32</span><span class="op">)</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"greedy"</span>, <span class="st">"conservative"</span>, <span class="st">"standard"</span><span class="op">)</span>,</span>
+<span>  na.action <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></span>,</span>
+<span>  dopar <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">fftpgram</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">deltat</span>,</span>
+<span>  periodRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">32</span><span class="op">)</span>,</span>
+<span>  pad <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  na.action <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lspgram</span><span class="op">(</span><span class="va">x</span>, <span class="va">deltat</span>, <span class="va">time</span>, periodRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">32</span><span class="op">)</span>, ofac <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">spectr</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">deltat</span>,</span>
+<span>  <span class="va">time</span>,</span>
+<span>  periodRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">32</span><span class="op">)</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"greedy_chisq"</span>, <span class="st">"conservative_chisq"</span>, <span class="st">"standard_chisq"</span>, <span class="st">"lombscargle"</span>,</span>
+<span>    <span class="st">"fft"</span><span class="op">)</span>,</span>
+<span>  ofac <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  pad <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  na.action <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></span>,</span>
+<span>  dopar <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Numeric vector of measurements.</p></dd>
+
+
 <dt>deltat</dt>
 <dd><p>Numeric value of the interval between time-points.</p></dd>
+
+
 <dt>periodRange</dt>
 <dd><p>Numeric vector of the minimum and maximum values of the
 period to consider, in the same units as <code>deltat</code> or <code>time</code>.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Character indicating which method to use. Can be an unambiguous
 substring of the full name.</p></dd>
+
+
 <dt>na.action</dt>
 <dd><p>Function specifying how to handle <code>NA</code> values in <code>x</code>.
 Default is <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">stats::na.fail()</a></code>, which gives an error if any values are
 missing. Ignored for Lomb-Scargle.</p></dd>
+
+
 <dt>dopar</dt>
 <dd><p>Logical indicating whether to run calculations in parallel if
 a parallel backend is already set up, e.g., using
 <code><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html" class="external-link">doParallel::registerDoParallel()</a></code>. Only used for chi-square.</p></dd>
+
+
 <dt>pad</dt>
 <dd><p>Numeric value of the proportion of the length of <code>x</code> by which to
 pad <code>x</code> with zeros. Must be &gt; 0. Only used for FFT.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed to <code><a href="https://rdrr.io/r/stats/spec.pgram.html" class="external-link">stats::spec.pgram()</a></code> for FFT.</p></dd>
+
+
 <dt>time</dt>
 <dd><p>Numeric vector of time-points. Can be specified instead of
 <code>deltat</code> for Lomb-Scargle.</p></dd>
+
+
 <dt>ofac</dt>
 <dd><p>Integer value of the oversampling factor. Must be &gt;= 1. Only used
 for Lomb-Scargle.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>data.table</code> with various columns depending on the method. For any
+    
+
+<p>A <code>data.table</code> with various columns depending on the method. For any
 version of chi-square, columns will be <code>period</code>, <code>chisq</code>, <code>df</code>, and
 <code>log_pval</code>. The log p-value is more reliable than the p-value, since R has
 finite precision, so p-values less than about 5e-324 would be set to 0. For
@@ -147,23 +168,23 @@ Lomb-Scargle and FFT, columns will be <code>period</code> and <code>power</code>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com" class="external-link">'data.table'</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1789</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">deltat</span> <span class="op">=</span> <span class="fl">0.1</span></span>
-<span class="r-in"><span class="va">tau</span> <span class="op">=</span> <span class="fl">25</span></span>
-<span class="r-in"><span class="va">tt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">24</span> <span class="op">*</span> <span class="fl">3</span>, <span class="va">deltat</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">=</span> <span class="fl">3</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">tt</span> <span class="op">/</span> <span class="va">tau</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">specCsp</span> <span class="op">=</span> <span class="fu">spectr</span><span class="op">(</span><span class="va">x</span>, <span class="va">deltat</span>, method <span class="op">=</span> <span class="st">'greedy'</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">peakCsp</span> <span class="op">=</span> <span class="va">specCsp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="va">log_pval</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">specLsp</span> <span class="op">=</span> <span class="fu">spectr</span><span class="op">(</span><span class="va">x</span>, <span class="va">deltat</span>, method <span class="op">=</span> <span class="st">'lomb'</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">peakLsp</span> <span class="op">=</span> <span class="va">specLsp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">power</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">specFft</span> <span class="op">=</span> <span class="fu">spectr</span><span class="op">(</span><span class="va">x</span>, <span class="va">deltat</span>, method <span class="op">=</span> <span class="st">'fft'</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">peakFft</span> <span class="op">=</span> <span class="va">specFft</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">power</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://r-datatable.com" class="external-link">'data.table'</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1789</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">deltat</span> <span class="op">=</span> <span class="fl">0.1</span></span></span>
+<span class="r-in"><span><span class="va">tau</span> <span class="op">=</span> <span class="fl">25</span></span></span>
+<span class="r-in"><span><span class="va">tt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">24</span> <span class="op">*</span> <span class="fl">3</span>, <span class="va">deltat</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fl">3</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">tt</span> <span class="op">/</span> <span class="va">tau</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">pi</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">specCsp</span> <span class="op">=</span> <span class="fu">spectr</span><span class="op">(</span><span class="va">x</span>, <span class="va">deltat</span>, method <span class="op">=</span> <span class="st">'greedy'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">peakCsp</span> <span class="op">=</span> <span class="va">specCsp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="va">log_pval</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">specLsp</span> <span class="op">=</span> <span class="fu">spectr</span><span class="op">(</span><span class="va">x</span>, <span class="va">deltat</span>, method <span class="op">=</span> <span class="st">'lomb'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">peakLsp</span> <span class="op">=</span> <span class="va">specLsp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">power</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">specFft</span> <span class="op">=</span> <span class="fu">spectr</span><span class="op">(</span><span class="va">x</span>, <span class="va">deltat</span>, method <span class="op">=</span> <span class="st">'fft'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">peakFft</span> <span class="op">=</span> <span class="va">specFft</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">power</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -175,7 +196,7 @@ Lomb-Scargle and FFT, columns will be <code>period</code> and <code>power</code>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>
