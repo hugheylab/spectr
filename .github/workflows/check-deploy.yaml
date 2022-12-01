@@ -9,3 +9,4 @@ name: check-deploy
 jobs:
   check-deploy:
     uses: hugheylab/actions/.github/workflows/check-deploy.yaml@main
+    secrets: inherit
